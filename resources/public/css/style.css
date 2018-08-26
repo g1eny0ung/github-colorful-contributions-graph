@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poiret One', cursive;
+}
+
+.container {
+  width: 320px;
+  height: 380px;
+}
+
+.gcc-header {
+  text-align: center;
+  border-bottom: 3px solid #ccc;
+}
+
+.gcc-panel {
+  width: 280px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.gcc-panel .blocks {
+  display: flex;
+}
+
+.gcc-panel .default-fills > div {
+  position: relative;
+  display: flex;
+}
+
+.gcc-panel .default-fills input {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.gcc-panel .default-fills ul {
+  margin: 8px 0;
+  padding-left: 2rem;
+  list-style: none;
+}
+
+.gcc-panel .default-fills ul > li {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin: 0 4px;
+}
+
+.colorblock {
+  position: relative;
+}
+
+.colorblock .block {
+  width: 48px;
+  height: 48px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+.colorblock .picker-wrapper {
+  position: absolute;
+  z-index: 2;
+}
+
+.gcc-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

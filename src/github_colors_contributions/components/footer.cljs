@@ -1,0 +1,9 @@
+(ns github-colors-contributions.components.footer)
+
+(defn footer []
+  [:footer.gcc-footer
+   [:h4 "Made with "
+    [:span {:style {:color "red"}} "❤"]
+    " and fun by "
+    [:a {:href "https://github.com/g1eny0ung"} "g1eny0ung"]
+    "."]])
