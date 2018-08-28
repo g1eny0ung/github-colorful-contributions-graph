@@ -33,6 +33,7 @@
 
 (defn set-color [index]
   (fn [color] (swap! user-defined-fill assoc index (get (js->clj color) "hex"))
+    (reset! user-selected-fill "none")
     (set-defined-fill @user-defined-fill)
     (set-selected-fill "none")
     (reload-content-scripts)))
