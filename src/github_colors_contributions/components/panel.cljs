@@ -63,6 +63,7 @@
    [:div.buttons
     [:h3 "Options:"]
     [:button {:on-click (fn [] (reset! user-defined-fill (:green default-fills))
+                          (reset! user-selected-fill "none")
                           (set-defined-fill @user-defined-fill)
                           (set-selected-fill "none")
                           (reload-content-scripts))} "Reset colors"]]])
