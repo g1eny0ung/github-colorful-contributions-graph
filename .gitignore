@@ -12,3 +12,6 @@ pom.xml
 .lein-plugins/
 .repl
 .nrepl-port
+bundle/*
+!bundle/index.html
+!bundle/manifest.json

@@ -1,6 +1,6 @@
-(defproject github-colors-contributions "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
-  :url "http://example.com/FIXME"
+(defproject github-colors-contributions "0.1.0"
+  :description "Chrome extension to cutomsize you own github contributions' color."
+  :url "http://github.com/g1eny0ung/github-colors-contributions"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -31,6 +31,7 @@
                 :source-paths ["src/github_colors_contributions"]
                 :compiler {:output-to "resources/public/js/compiled/github_colors_contributions.js"
                            :main github-colors-contributions.core
+                           :externs ["externs/chrome.js" "externs/chrome_extensions.js"]
                            :optimizations :advanced
                            :pretty-print false}}]}
 
