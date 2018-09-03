@@ -1,6 +1,6 @@
 # github-colors-contributions
 
-:green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: Chrome extension to cutomsize you own github contributions' color.
+:green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: Chrome extension to customize you own Github contributions' color.
 
 ## Overview
 

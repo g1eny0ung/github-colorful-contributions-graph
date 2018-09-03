@@ -30,3 +30,5 @@ cp -r resources/public/js bundle
 mv bundle/js/compiled/github_colors_contributions.js bundle/js
 rm -r bundle/js/compiled
 rm bundle/js/init.js
+
+zip -r g-c-c.zip bundle
