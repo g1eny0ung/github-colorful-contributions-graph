@@ -51,8 +51,8 @@
      (doall (for [[k fill] default-fills]
               ^{:key k} [:div
                          [:input {:type "radio"
-                                  :value (str k)
-                                  :checked (= @user-selected-fill (str k))
+                                  :value (name k)
+                                  :checked (= @user-selected-fill (name k))
                                   :on-change (fn [e]
                                                (reset! user-selected-fill (.. e -target -value))
                                                (set-selected-fill k)
