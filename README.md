@@ -2,23 +2,18 @@
 
 :green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: Chrome extension to customize you own Github contributions' color.
 
-## Overview
+## Screenshot
 
+![screenshot](./screenshot.jpg)
 
+## How To Use
 
-## Setup
+```sh
+chmod +x bundle.sh
+./bundle.sh
+```
 
-To get an interactive development environment run:
-
-> lein figwheel
-
-To clean all compiled files:
-
-> lein clean
-
-To create a production build run:
-
-> lein do clean, cljsbuild once min
+Then unpack the `g-c-c.zip` and load `bundle/` in [chrome://extensions/](chrome://extensions/).
 
 ## License
 
