@@ -65,6 +65,35 @@ chrome.storage.sync.get(
       t.style = 'background-color: ' + definedFills[i]
     })
 
+    var profileRollupContentRowSpans = document.querySelectorAll(
+      'ul.profile-rollup-content > li span.progress-bar'
+    )
+
+    Array.prototype.slice.call(profileRollupContentRowSpans).map(span => {
+      span.style.backgroundColor = changeFill(
+        originFills,
+        definedFills,
+        span.attributes.style.value.split(' ')[1]
+      )
+    })
+
+    var activityOverviewGraph = document.querySelector(
+      '.js-activity-overview-graph-container > svg > g'
+    )
+
+    Array.prototype.slice.call(activityOverviewGraph.children).map(child => {
+      if (child.nodeName === 'path') {
+        child.attributes.fill.value = definedFills[2]
+        child.style.stroke = definedFills[2]
+      }
+      if (child.nodeName === 'line') {
+        child.style.stroke = definedFills[2]
+      }
+      if (child.nodeName === 'ellipse') {
+        child.style.stroke = definedFills[2]
+      }
+    })
+
     chrome.storage.sync.set({
       githubColorsContributionsPreDefinedFills: definedFills
     })
