@@ -81,18 +81,20 @@ chrome.storage.sync.get(
       '.js-activity-overview-graph-container > svg > g'
     )
 
-    Array.prototype.slice.call(activityOverviewGraph.children).map(child => {
-      if (child.nodeName === 'path') {
-        child.attributes.fill.value = definedFills[2]
-        child.style.stroke = definedFills[2]
-      }
-      if (child.nodeName === 'line') {
-        child.style.stroke = definedFills[2]
-      }
-      if (child.nodeName === 'ellipse') {
-        child.style.stroke = definedFills[2]
-      }
-    })
+    if (activityOverviewGraph) {
+      Array.prototype.slice.call(activityOverviewGraph.children).map(child => {
+        if (child.nodeName === 'path') {
+          child.attributes.fill.value = definedFills[2]
+          child.style.stroke = definedFills[2]
+        }
+        if (child.nodeName === 'line') {
+          child.style.stroke = definedFills[2]
+        }
+        if (child.nodeName === 'ellipse') {
+          child.style.stroke = definedFills[2]
+        }
+      })
+    }
 
     // Isometric Contributions
     let count = 0
