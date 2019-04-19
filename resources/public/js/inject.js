@@ -94,6 +94,25 @@ chrome.storage.sync.get(
       }
     })
 
+    // Isometric Contributions
+    let count = 0
+    const icStatsCountsId = setInterval(() => {
+      var icStatsCounts = document.querySelectorAll('span.ic-stats-count')
+
+      if (icStatsCounts.length > 0) {
+        Array.prototype.slice.call(icStatsCounts).map(span => {
+          span.style.color = definedFills[4]
+        })
+        clearInterval(icStatsCountsId)
+      } else {
+        count++
+      }
+
+      if (count === 10) {
+        clearInterval(icStatsCountsId)
+      }
+    }, 500)
+
     chrome.storage.sync.set({
       githubColorsContributionsPreDefinedFills: definedFills
     })
