@@ -22,8 +22,7 @@ chrome.runtime.onInstalled.addListener(function() {
       {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostPrefix: 'github.com', schemes: ['https'] },
-            css: ['svg.js-calendar-graph-svg']
+            pageUrl: { hostPrefix: 'github.com', schemes: ['https'] }
           })
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()]
