@@ -8,7 +8,7 @@
 
 ## Screenshot
 
-![screenshot](./screenshot.jpg)
+![screenshot](./screenshot.png)
 
 ## How To Use
 
