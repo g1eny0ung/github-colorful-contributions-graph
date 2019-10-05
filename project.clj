@@ -1,5 +1,5 @@
 (defproject github-colorful-contributions-graph "0.1.0"
-  :description "Chrome extension to cutomsize you own github contributions' color."
+  :description "A Chrome extension for customizing the colors of the GitHub contributions' graph."
   :url "http://github.com/g1eny0ung/github-colorful-contributions-graph"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -19,7 +19,7 @@
 
   :cljsbuild {:builds
               [{:id "dev"
-                :source-paths ["src/github_colors_contributions"]
+                :source-paths ["src/github_colorful_contributions_graph"]
                 :figwheel {:on-jsload "github-colorful-contributions-graph.core/on-js-reload"}
                 :compiler {:main github-colorful-contributions-graph.core
                            :asset-path "js/compiled/out"
@@ -28,7 +28,7 @@
                            :source-map-timestamp true
                            :preloads [devtools.preload]}}
                {:id "min"
-                :source-paths ["src/github_colors_contributions"]
+                :source-paths ["src/github_colorful_contributions_graph"]
                 :compiler {:output-to "resources/public/js/compiled/github_colors_contributions.js"
                            :main github-colorful-contributions-graph.core
                            :externs ["externs/chrome.js" "externs/chrome_extensions.js"]
