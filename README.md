@@ -6,10 +6,6 @@
 
 [https://chrome.google.com/webstore/detail/github-colors-contributio/nmlemiahmhcclpifhmpbjbikdgbndief](https://chrome.google.com/webstore/detail/github-colors-contributio/nmlemiahmhcclpifhmpbjbikdgbndief)
 
-## Screenshot
-
-![screenshot](./screenshot.png)
-
 ## How To Use
 
 ```sh
@@ -17,7 +13,7 @@ chmod +x bundle.sh
 ./bundle.sh
 ```
 
-Then unpack the `g-c-c.zip` and load `bundle/` in [chrome://extensions/](chrome://extensions/).
+Then unpack the `g-c-c.zip` and load `bundle/` in `chrome://extensions/`.
 
 ## License
 
