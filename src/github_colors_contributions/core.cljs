@@ -1,9 +1,9 @@
-(ns github-colors-contributions.core
+(ns github-colorful-contributions-graph.core
   (:require [reagent.core :as reagent]
-            [github-colors-contributions.data :as d]
-            [github-colors-contributions.components.header :refer [header]]
-            [github-colors-contributions.components.panel :refer [panel]]
-            [github-colors-contributions.components.footer :refer [footer]]))
+            [github-colorful-contributions-graph.data :as d]
+            [github-colorful-contributions-graph.components.header :refer [header]]
+            [github-colorful-contributions-graph.components.panel :refer [panel]]
+            [github-colorful-contributions-graph.components.footer :refer [footer]]))
 
 (enable-console-print!)
 

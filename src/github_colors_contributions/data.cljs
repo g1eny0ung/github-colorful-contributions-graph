@@ -1,4 +1,4 @@
-(ns github-colors-contributions.data)
+(ns github-colorful-contributions-graph.data)
 
 (def default-fills {:green ["#ebedf0" "#c6e48b" "#7bc96f" "#239a3b" "#196127"]
                     :blue ["#ebedf0", "#b4daff", "#75baff", "#0080ff", "#0056ac"]

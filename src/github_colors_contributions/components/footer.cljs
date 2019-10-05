@@ -1,4 +1,4 @@
-(ns github-colors-contributions.components.footer)
+(ns github-colorful-contributions-graph.components.footer)
 
 (defn footer []
   [:footer.gcc-footer

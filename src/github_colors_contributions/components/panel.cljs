@@ -1,8 +1,8 @@
-(ns github-colors-contributions.components.panel
+(ns github-colorful-contributions-graph.components.panel
   (:require
    [reagent.core :as r]
-   [github-colors-contributions.components.colorblock :refer [colorblock]]
-   [github-colors-contributions.data :refer [default-fills
+   [github-colorful-contributions-graph.components.colorblock :refer [colorblock]]
+   [github-colorful-contributions-graph.data :refer [default-fills
                                              reload-content-scripts
                                              set-defined-fill
                                              set-selected-fill]]))

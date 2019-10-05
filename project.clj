@@ -1,6 +1,6 @@
-(defproject github-colors-contributions "0.1.0"
+(defproject github-colorful-contributions-graph "0.1.0"
   :description "Chrome extension to cutomsize you own github contributions' color."
-  :url "http://github.com/g1eny0ung/github-colors-contributions"
+  :url "http://github.com/g1eny0ung/github-colorful-contributions-graph"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
@@ -20,8 +20,8 @@
   :cljsbuild {:builds
               [{:id "dev"
                 :source-paths ["src/github_colors_contributions"]
-                :figwheel {:on-jsload "github-colors-contributions.core/on-js-reload"}
-                :compiler {:main github-colors-contributions.core
+                :figwheel {:on-jsload "github-colorful-contributions-graph.core/on-js-reload"}
+                :compiler {:main github-colorful-contributions-graph.core
                            :asset-path "js/compiled/out"
                            :output-to "resources/public/js/compiled/github_colors_contributions.js"
                            :output-dir "resources/public/js/compiled/out"
@@ -30,7 +30,7 @@
                {:id "min"
                 :source-paths ["src/github_colors_contributions"]
                 :compiler {:output-to "resources/public/js/compiled/github_colors_contributions.js"
-                           :main github-colors-contributions.core
+                           :main github-colorful-contributions-graph.core
                            :externs ["externs/chrome.js" "externs/chrome_extensions.js"]
                            :optimizations :advanced
                            :pretty-print false}}]}

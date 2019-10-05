@@ -7,7 +7,7 @@ else
   cp -r resources/public/images bundle
 fi
 
-echo "Move css file --- "
+echo "Move css files --- "
 
 if [ -d "bundle/css" ]; then
   rm -r bundle/css

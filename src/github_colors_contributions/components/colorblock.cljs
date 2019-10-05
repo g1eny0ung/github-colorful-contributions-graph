@@ -1,4 +1,4 @@
-(ns github-colors-contributions.components.colorblock
+(ns github-colorful-contributions-graph.components.colorblock
   (:require [reagent.core :as r]
             [cljsjs.react]
             [cljsjs.react-color]))
