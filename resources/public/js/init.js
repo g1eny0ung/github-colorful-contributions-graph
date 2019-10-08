@@ -7,7 +7,7 @@ if (typeof goog == 'undefined') {
 goog.require('devtools.preload')
 goog.require('figwheel.connect')
 goog.require('process.env')
-goog.require('github_colors_contributions.core')
+goog.require('github_colorful_contributions_graph.core')
 
 setTimeout(function() {
   figwheel.connect.start()

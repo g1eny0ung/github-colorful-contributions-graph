@@ -23,13 +23,13 @@
                 :figwheel {:on-jsload "github-colorful-contributions-graph.core/on-js-reload"}
                 :compiler {:main github-colorful-contributions-graph.core
                            :asset-path "js/compiled/out"
-                           :output-to "resources/public/js/compiled/github_colors_contributions.js"
+                           :output-to "resources/public/js/compiled/github_colorful_contributions.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
                            :preloads [devtools.preload]}}
                {:id "min"
                 :source-paths ["src/github_colorful_contributions_graph"]
-                :compiler {:output-to "resources/public/js/compiled/github_colors_contributions.js"
+                :compiler {:output-to "resources/public/js/compiled/github_colorful_contributions.js"
                            :main github-colorful-contributions-graph.core
                            :externs ["externs/chrome.js" "externs/chrome_extensions.js"]
                            :optimizations :advanced

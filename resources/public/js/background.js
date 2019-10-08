@@ -1,20 +1,10 @@
+var defaultFills = ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({
-    githubColorsContributionsUserDefinedFills: [
-      '#ebedf0',
-      '#c6e48b',
-      '#7bc96f',
-      '#239a3b',
-      '#196127'
-    ],
+    githubColorsContributionsUserDefinedFills: defaultFills,
     githubColorsContributionsUserSelectedFills: 'none',
-    githubColorsContributionsPreDefinedFills: [
-      '#ebedf0',
-      '#c6e48b',
-      '#7bc96f',
-      '#239a3b',
-      '#196127'
-    ]
+    githubColorsContributionsPreDefinedFills: defaultFills
   })
 
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {

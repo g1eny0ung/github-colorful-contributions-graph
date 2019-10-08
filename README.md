@@ -4,7 +4,7 @@
 
 ## Download
 
-[https://chrome.google.com/webstore/detail/github-colors-contributio/nmlemiahmhcclpifhmpbjbikdgbndief](https://chrome.google.com/webstore/detail/github-colors-contributio/nmlemiahmhcclpifhmpbjbikdgbndief)
+[https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief](https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief)
 
 ## How To Use
 
