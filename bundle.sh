@@ -22,12 +22,14 @@ lein do clean, cljsbuild once min
 
 echo "Move js files --- "
 
-if [ ! -d "bundle/js" ]; then
+if [ -d "bundle/js" ]; then
   mkdir bundle/js
+  cp -r resources/public/js bundle
+else
+  cp -r resources/public/js bundle
 fi
 
-cp -r resources/public/js bundle
-mv bundle/js/compiled/github_colors_contributions.js bundle/js
+mv bundle/js/compiled/github_colorful_contributions.js bundle/js
 rm -r bundle/js/compiled
 rm bundle/js/init.js
 
