@@ -6,6 +6,9 @@ chrome.runtime.onInstalled.addListener(function() {
     githubColorsContributionsUserSelectedFills: 'none',
     githubColorsContributionsPreDefinedFills: defaultFills
   })
+  chrome.storage.local.set({
+    isInject: false
+  })
 
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
     chrome.declarativeContent.onPageChanged.addRules([
@@ -23,8 +26,15 @@ chrome.runtime.onInstalled.addListener(function() {
 
 chrome.runtime.onMessage.addListener(function(message) {
   if (message === 'runInject') {
-    chrome.tabs.executeScript({
-      file: 'js/inject.js'
-    })
+    chrome.storage.local.set(
+      {
+        isInject: true
+      },
+      function() {
+        chrome.tabs.executeScript({
+          file: 'js/content_script.js'
+        })
+      }
+    )
   }
 })

@@ -20,8 +20,8 @@
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
-      "exclude_matches": ["*://*/*/*"],
-      "js": ["js/content_script.js"]
+      "css": ["css/iso.css"],
+      "js": ["js/jquery.min.js", "js/obelisk.min.js", "js/content_script.js", "js/iso.js"]
     }
   ],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
