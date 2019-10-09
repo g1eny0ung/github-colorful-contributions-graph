@@ -8,12 +8,12 @@
 
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.238"]
-                 [org.clojure/core.async  "0.4.474"]
                  [reagent "0.8.1"]
                  [cljsjs/react-color "2.13.8-0"]]
 
-  :plugins [[lein-figwheel "0.5.16"]
-            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]]
+  :plugins [[lein-figwheel "0.5.19"]
+            [lein-cljsbuild "1.1.7" :exclusions [[org.clojure/clojure]]]
+            [lein-ancient "0.6.15"]]
 
   :source-paths ["src"]
 
@@ -37,13 +37,9 @@
 
   :figwheel {:css-dirs ["resources/public/css"]}
   :profiles {:dev {:dependencies [[binaryage/devtools "0.9.10"]
-                                  [figwheel-sidecar "0.5.16"]
-                                  [cider/piggieback "0.3.8"]]
-                   ;; need to add dev source path here to get user.clj loaded
+                                  [figwheel-sidecar "0.5.19"]
+                                  [cider/piggieback "0.4.2"]]
                    :source-paths ["src" "dev"]
-                   ;; for CIDER
-                   ;; :plugins [[cider/cider-nrepl "0.12.0"]]
                    :repl-options {:nrepl-middleware [cider.piggieback/wrap-cljs-repl]}
-                   ;; need to add the compliled assets to the :clean-targets
                    :clean-targets ^{:protect false} ["resources/public/js/compiled"
                                                      :target-path]}})
