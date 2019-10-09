@@ -1,4 +1,4 @@
-(defproject github-colorful-contributions-graph "0.1.0"
+(defproject github-colorful-contributions-graph "1.3.1"
   :description "A Chrome extension for customizing the colors of the GitHub contributions' graph."
   :url "http://github.com/g1eny0ung/github-colorful-contributions-graph"
   :license {:name "Eclipse Public License"
