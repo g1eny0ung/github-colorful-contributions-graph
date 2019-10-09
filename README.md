@@ -2,6 +2,8 @@
 
 :green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: A Chrome extension for customizing the colors of the GitHub contributions' graph.
 
+> 2019-10-09: Integrate <https://github.com/jasonlong/isometric-contributions>
+
 ## Download
 
 [https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief](https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief)
