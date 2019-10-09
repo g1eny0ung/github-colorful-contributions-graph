@@ -23,7 +23,7 @@ lein do clean, cljsbuild once min
 echo "Move js files --- "
 
 if [ -d "bundle/js" ]; then
-  mkdir bundle/js
+  rm -r bundle/js
   cp -r resources/public/js bundle
 else
   cp -r resources/public/js bundle
