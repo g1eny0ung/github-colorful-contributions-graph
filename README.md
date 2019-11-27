@@ -11,7 +11,6 @@
 ## How To Use
 
 ```sh
-chmod +x bundle.sh
 ./bundle.sh
 ```
 
