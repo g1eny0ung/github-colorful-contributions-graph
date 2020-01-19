@@ -9,7 +9,7 @@
     "persistent": false
   },
   "page_action": {
-    "default_popup": "index_dev.html",
+    "default_popup": "index.html",
     "default_icon": {
       "16": "images/16x16.png",
       "32": "images/32x32.png",

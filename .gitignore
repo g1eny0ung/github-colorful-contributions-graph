@@ -1,6 +1,3 @@
-.DS_Store
-/resources/public/js/compiled/**
-figwheel_server.log
 pom.xml
 *jar
 /lib/
@@ -12,9 +9,11 @@ pom.xml
 .lein-plugins/
 .repl
 .nrepl-port
+.cpcache/
+.rebel_readline_history
 
+.DS_Store
+/resources/public/cljs-out/
 bundle/*
 !bundle/index.html
-!bundle/manifest.json
 *.zip
-.rebel_readline_history

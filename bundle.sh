@@ -18,7 +18,7 @@ fi
 
 echo "Bundle js --- "
 
-lein do clean, cljsbuild once min
+lein fig:min
 
 echo "Move js files --- "
 
@@ -29,8 +29,8 @@ else
   cp -r resources/public/js bundle
 fi
 
-mv bundle/js/compiled/github_colorful_contributions.js bundle/js
-rm -r bundle/js/compiled
-rm bundle/js/init.js
+cp resources/public/cljs-out/min-main.js bundle/js/github_colorful_contributions.js
+
+cp resources/public/manifest.json bundle/
 
 zip -r g-c-c.zip bundle

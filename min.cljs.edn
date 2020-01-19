@@ -1,0 +1,2 @@
+{:main github-colorful-contributions-graph.core
+ :externs ["externs/chrome.js" "externs/chrome_extensions.js"]}

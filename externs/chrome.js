@@ -369,7 +369,15 @@ MessageSender.prototype.url;
 
 
 /** @type {string|undefined} */
+MessageSender.prototype.nativeApplication;
+
+
+/** @type {string|undefined} */
 MessageSender.prototype.tlsChannelId;
+
+
+/** @type {string|undefined} */
+MessageSender.prototype.origin;
 
 
 /**
@@ -650,49 +658,6 @@ ChromeLoadTimes.prototype.wasAlternateProtocolAvailable;
 
 /** @type {string} */
 ChromeLoadTimes.prototype.connectionInfo;
-
-
-/**
- * Returns an object containing timing information.
- * @return {!ChromeCsiInfo}
- */
-chrome.csi = function() {};
-
-
-
-/**
- * The data object given by chrome.csi().
- * @constructor
- */
-function ChromeCsiInfo() {}
-
-
-/**
- * Same as chrome.loadTimes().requestTime, if defined.
- * Otherwise, gives the same value as chrome.loadTimes().startLoadTime.
- * In milliseconds, truncated.
- * @type {number}
- */
-ChromeCsiInfo.prototype.startE;
-
-
-/**
- * Same as chrome.loadTimes().finishDocumentLoadTime but in milliseconds and
- * truncated.
- * @type {number}
- */
-ChromeCsiInfo.prototype.onloadT;
-
-
-/**
- * The time since startE in milliseconds.
- * @type {number}
- */
-ChromeCsiInfo.prototype.pageT;
-
-
-/** @type {number} */
-ChromeCsiInfo.prototype.tran;
 
 
 /**
