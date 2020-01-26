@@ -3,8 +3,8 @@ var defaultFills = ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
 chrome.runtime.onInstalled.addListener(function() {
   chrome.storage.sync.set({
     githubColorsContributionsUserDefinedFills: defaultFills,
-    githubColorsContributionsUserSelectedFills: 'none',
-    githubColorsContributionsPreDefinedFills: defaultFills
+    githubColorsContributionsPreDefinedFills: defaultFills,
+    githubColorsContributionsUserSelectedFills: 'none'
   })
   chrome.storage.local.set({
     isInject: false

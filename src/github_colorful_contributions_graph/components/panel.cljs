@@ -3,16 +3,11 @@
    [reagent.core :as r]
    [github-colorful-contributions-graph.components.colorblock :refer [colorblock]]
    [github-colorful-contributions-graph.data :refer [default-fills
-                                             reload-content-scripts
-                                             set-defined-fill
-                                             set-selected-fill]]))
+                                                     reload-content-scripts
+                                                     set-defined-fill
+                                                     set-selected-fill]]))
 
-(defonce user-defined-fill (r/atom ["#ebedf0"
-                                    "#c6e48b"
-                                    "#7bc96f"
-                                    "#239a3b"
-                                    "#196127"]))
-
+(defonce user-defined-fill (r/atom (:green default-fills)))
 (defonce user-selected-fill (r/atom ""))
 
 (.get
@@ -34,8 +29,8 @@
 (defn set-color [index]
   (fn [color] (swap! user-defined-fill assoc index (get (js->clj color) "hex"))
     (reset! user-selected-fill "none")
-    (set-defined-fill @user-defined-fill)
     (set-selected-fill "none")
+    (set-defined-fill @user-defined-fill)
     (reload-content-scripts)))
 
 (defn panel []
@@ -58,7 +53,7 @@
                                                (set-selected-fill k)
                                                (reload-content-scripts))}]
                          [:ul (for [f fill]
-                                ^{:key (str (rand 100) f)}
+                                ^{:key f}
                                 [:li {:style {:background f}}])]]))]]
    [:div.buttons
     [:h3 "Options:"]

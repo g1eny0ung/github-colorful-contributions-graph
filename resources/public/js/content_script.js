@@ -19,7 +19,7 @@ function changeFill(originFills, definedFills, val) {
     case originFills[4]:
       return definedFills[4]
     default:
-      break
+      return null
   }
 }
 
