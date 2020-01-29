@@ -1,7 +1,7 @@
 {
   "name": "GitHub Colorful Contributions",
   "version": "1.4.2",
-  "description": "💚💙💜💛❤️A Chrome extension for customizing the colors of the GitHub contributions' graph.",
+  "description": "💚💙💜💛❤️A Chrome extension for customizing the colors of the GitHub contributions graph.",
   "manifest_version": 2,
   "permissions": ["storage", "declarativeContent", "tabs", "activeTab"],
   "background": {

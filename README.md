@@ -1,6 +1,6 @@
 # github-colorful-contributions-graph
 
-:green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: A Chrome extension for customizing the colors of the GitHub contributions' graph.
+:green_heart: :blue_heart: :purple_heart: :yellow_heart: :heart: A Chrome extension for customizing the colors of the GitHub contributions graph.
 
 > 2019-10-09: Integrate <https://github.com/jasonlong/isometric-contributions>
 
@@ -14,10 +14,10 @@
 ./bundle.sh
 ```
 
-Then unpack the `g-c-c.zip` and load `bundle/` in `chrome://extensions/`.
+Then unpack the `g-c-c.zip` and load `bundle/` in `chrome://extensions`.
 
 ## License
 
-Copyright © 2019 g1eny0ung
+Copyright © 2020 g1eny0ung
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
