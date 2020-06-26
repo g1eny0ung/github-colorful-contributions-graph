@@ -15,8 +15,7 @@
 
   :source-paths ["src"]
 
-  :aliases {"fig"       ["trampoline" "run" "-m" "figwheel.main"]
-            "fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev"]
+  :aliases {"fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev"]
             "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "min"]}
 
   :profiles {:dev {:dependencies [[com.bhauman/figwheel-main "0.2.3"]

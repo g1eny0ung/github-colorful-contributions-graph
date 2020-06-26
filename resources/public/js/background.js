@@ -1,38 +1,38 @@
-var defaultFills = ['#ebedf0', '#c6e48b', '#7bc96f', '#239a3b', '#196127']
+var defaultFills = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 
-chrome.runtime.onInstalled.addListener(function() {
+chrome.runtime.onInstalled.addListener(function () {
   chrome.storage.sync.set({
     githubColorsContributionsUserDefinedFills: defaultFills,
     githubColorsContributionsPreDefinedFills: defaultFills,
-    githubColorsContributionsUserSelectedFills: 'none'
+    githubColorsContributionsUserSelectedFills: 'none',
   })
   chrome.storage.local.set({
-    isInject: false
+    isInject: false,
   })
 
-  chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
+  chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([
       {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: { hostPrefix: 'github.com', schemes: ['https'] }
-          })
+            pageUrl: { hostPrefix: 'github.com', schemes: ['https'] },
+          }),
         ],
-        actions: [new chrome.declarativeContent.ShowPageAction()]
-      }
+        actions: [new chrome.declarativeContent.ShowPageAction()],
+      },
     ])
   })
 })
 
-chrome.runtime.onMessage.addListener(function(message) {
+chrome.runtime.onMessage.addListener(function (message) {
   if (message === 'runInject') {
     chrome.storage.local.set(
       {
-        isInject: true
+        isInject: true,
       },
-      function() {
+      function () {
         chrome.tabs.executeScript({
-          file: 'js/content_script.js'
+          file: 'js/content_script.js',
         })
       }
     )

@@ -21,7 +21,7 @@
     {
       "matches": ["https://github.com/*"],
       "css": ["css/iso.css"],
-      "js": ["js/jquery.min.js", "js/obelisk.min.js", "js/content_script.js", "js/iso.js"]
+      "js": ["js/obelisk.min.js", "js/content_script.js"]
     }
   ],
   "icons": {
