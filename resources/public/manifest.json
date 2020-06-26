@@ -20,7 +20,6 @@
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],
-      "css": ["css/iso.css"],
       "js": ["js/obelisk.min.js", "js/content_script.js"]
     }
   ],
