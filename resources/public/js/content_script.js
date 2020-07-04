@@ -77,6 +77,7 @@ function main(result, originFills) {
     span.style.backgroundColor = changeFill(originFills, definedFills, span.attributes.style.value.split(' ')[1])
   })
 
+  // Activity overview
   var activityOverviewGraph = document.querySelector('.js-activity-overview-graph-container > svg > g')
 
   if (activityOverviewGraph) {
@@ -96,21 +97,21 @@ function main(result, originFills) {
 
   // Isometric Contributions
   let count = 0
-  const icStatsCountsId = setInterval(() => {
-    var icStatsCounts = document.querySelectorAll('span.ic-stats-count')
+  const icStatsId = setInterval(() => {
+    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper span.text-green')
 
-    if (icStatsCounts.length > 0) {
-      Array.prototype.slice.call(icStatsCounts).map((span) => {
-        span.style.color = definedFills[4]
+    if (icStatsSpans.length > 0) {
+      Array.prototype.slice.call(icStatsSpans).map((span) => {
+        span.style = `color: ${definedFills[4]} !important;`
       })
       changeIsoColors(definedFills, originFills)
-      clearInterval(icStatsCountsId)
+      clearInterval(icStatsId)
     } else {
       count++
     }
 
     if (count === 10) {
-      clearInterval(icStatsCountsId)
+      clearInterval(icStatsId)
     }
   }, 500)
 
