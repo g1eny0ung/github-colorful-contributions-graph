@@ -3,4 +3,4 @@
 (defn header []
   [:header.gcc-header
    [:h2 "GitHub Colorful Contributions"]
-   [:p "Customize your own contributions' color."]])
+   [:p "Customize your own contributions' color"]])

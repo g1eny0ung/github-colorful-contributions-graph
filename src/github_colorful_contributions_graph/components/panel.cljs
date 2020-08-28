@@ -20,11 +20,11 @@
                 (reset! user-defined-fill d-fill)
                 (reset! user-selected-fill s-fill))))
 
-(def picker-positions [{:left "28px"}
-                       {:left "-28px"}
-                       {:left "-84px"}
-                       {:right "-28px"}
-                       {:right "28px"}])
+(def picker-positions [{:left "0"}
+                       {:left "0"}
+                       {:left "-88px"}
+                       {:right "8px"}
+                       {:right "8px"}])
 
 (defn set-color [index]
   (fn [color] (swap! user-defined-fill assoc index (get (js->clj color) "hex"))
@@ -40,7 +40,7 @@
              ^{:key i} [colorblock {:picker-position (nth picker-positions i)
                                     :color (nth @user-defined-fill i)
                                     :set-color (set-color i)}]))]
-   [:div
+   [:div.fills
     [:h3 "Or choose predefined colors:"]
     [:div.default-fills
      (doall (for [[k fill] default-fills]

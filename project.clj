@@ -9,7 +9,8 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.10.520"]
                  [reagent "0.8.1"]
-                 [cljsjs/react-color "2.13.8-0"]]
+                 [cljsjs/react-color "2.13.8-0"]
+                 [cljsjs/react-onclickoutside "6.7.1-1"]]
 
   :plugins [[lein-ancient "0.6.15"]]
 

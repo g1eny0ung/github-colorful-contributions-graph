@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Poiret+One');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
 body {
   margin: 0;
@@ -7,47 +7,21 @@ body {
 }
 
 .container {
-  width: 320px;
-  height: 380px;
+  display: flex;
+  flex-direction: column;
+  width: 360px;
 }
 
 .gcc-header {
+  width: 100%;
   text-align: center;
-  border-bottom: 3px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
-.gcc-panel {
-  width: 280px;
-  margin: 0 auto;
-  margin-top: 1rem;
-}
-
-.gcc-panel .blocks {
+.blocks {
   display: flex;
-}
-
-.gcc-panel .default-fills > div {
-  position: relative;
-  display: flex;
-}
-
-.gcc-panel .default-fills input {
-  position: absolute;
-  top: 6px;
-  left: 6px;
-}
-
-.gcc-panel .default-fills ul {
-  margin: 8px 0;
-  padding-left: 2rem;
-  list-style: none;
-}
-
-.gcc-panel .default-fills ul > li {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 0 4px;
+  justify-content: center;
+  margin: 1rem 0;
 }
 
 .colorblock {
@@ -57,17 +31,41 @@ body {
 .colorblock .block {
   width: 48px;
   height: 48px;
-  margin: 4px;
+  margin-right: 8px;
   cursor: pointer;
 }
 
 .colorblock .picker-wrapper {
   position: absolute;
-  z-index: 2;
+}
+
+.fills,
+.buttons {
+  margin-left: 3rem;
+}
+
+.default-fills > div {
+  display: flex;
+  align-items: center;
+}
+
+.default-fills input {
+  margin-right: -1rem;
+  margin-bottom: 4px;
+  z-index: 1;
+}
+
+.default-fills ul {
+  list-style: none;
+}
+
+.default-fills ul > li {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
 }
 
 .gcc-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  text-align: center;
 }

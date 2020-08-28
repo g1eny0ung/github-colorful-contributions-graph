@@ -1,7 +1,8 @@
 (ns github-colorful-contributions-graph.components.colorblock
   (:require [reagent.core :as r]
-            [cljsjs.react]
-            [cljsjs.react-color]))
+            cljsjs.react
+            cljsjs.react-color
+            cljsjs.react-onclickoutside))
 
 (defn colorblock [{:keys [picker-position color set-color]}]
   (let [display-picker (r/atom false)]
@@ -10,11 +11,16 @@
        [:div.block
         {:style {:background color}
          :on-click #(swap! display-picker not)}]
-       [:div.picker-wrapper {:style (merge
-                                     picker-position
-                                     {:display (if (true? @display-picker)
-                                                 "block"
-                                                 "none")})}
-        [:> js/ReactColor.ChromePicker {:color color
-                                        :onChangeComplete set-color
-                                        :disableAlpha true}]]])))
+       [:div.picker-wrapper
+        {:style (merge
+                 picker-position
+                 {:display (if (true? @display-picker)
+                             "block"
+                             "none")})}
+        [:> (. js/onClickOutside
+               default
+               (r/create-class
+                {:handleClickOutside #(reset! display-picker false)
+                 :reagent-render (fn [] [:> js/ReactColor.ChromePicker {:color color
+                                                                        :onChangeComplete set-color
+                                                                        :disableAlpha true}])}))]]])))
