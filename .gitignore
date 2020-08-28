@@ -19,4 +19,3 @@ pom.xml
 bundle/*
 !bundle/index.html
 *.zip
-.tern-port
