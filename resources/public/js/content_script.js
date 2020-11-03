@@ -87,10 +87,10 @@ function main(result, originFills) {
         child.style.stroke = definedFills[2]
       }
       if (child.nodeName === 'line') {
-        child.style.stroke = definedFills[2]
+        child.style.stroke = definedFills[4]
       }
       if (child.nodeName === 'ellipse') {
-        child.style.stroke = definedFills[2]
+        child.style.stroke = definedFills[4]
       }
     })
   }
