@@ -2,8 +2,8 @@
 
 (def default-fills {:green ["#ebedf0", "#9be9a8", "#40c463", "#30a14e", "#216e39"]
                     :blue ["#ebedf0", "#b4daff", "#75baff", "#0080ff", "#0056ac"]
-                    :purple ["#ebedf0", "#DBB7FF", "#B76EFF", "#8000FF", "#5200A4"]
-                    :orange ["#ebedf0", "#FFD9B3", "#FFAF5F", "#FF8000", "#AA5500"]
+                    :purple ["#ebedf0", "#dbb7ff", "#b76eff", "#8000ff", "#5200a4"]
+                    :orange ["#ebedf0", "#ffd9b3", "#ffaf5f", "#ff8000", "#aa5500"]
                     :red ["#ebedf0", "#ffa3a3", "#ff6868", "#ff0000", "#9c0101"]})
 
 (defn reload-content-scripts []

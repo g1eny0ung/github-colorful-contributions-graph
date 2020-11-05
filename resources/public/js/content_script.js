@@ -1,8 +1,8 @@
 var defaultFills = {
   green: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
   blue: ['#ebedf0', '#b4daff', '#75baff', '#0080ff', '#0056ac'],
-  purple: ['#ebedf0', '#DBB7FF', '#B76EFF', '#8000FF', '#5200A4'],
-  orange: ['#ebedf0', '#FFD9B3', '#FFAF5F', '#FF8000', '#AA5500'],
+  purple: ['#ebedf0', '#dbb7ff', '#b76eff', '#8000ff', '#5200a4'],
+  orange: ['#ebedf0', '#ffd9b3', '#ffaf5f', '#ff8000', '#aa5500'],
   red: ['#ebedf0', '#ffa3a3', '#ff6868', '#ff0000', '#9c0101'],
 }
 
@@ -51,35 +51,37 @@ function main(result, originFills) {
     definedFills = result.githubColorsContributionsUserDefinedFills
   }
 
+  // calendar
   var contribColumns = document.querySelectorAll('svg.js-calendar-graph-svg > g > g')
   if (contribColumns.length === 0) {
     return
   }
-  var alContribColumns = Array.prototype.slice.call(contribColumns)
-
-  alContribColumns.map(function (c) {
+  Array.prototype.slice.call(contribColumns).map(function (c) {
     var rects = Array.prototype.slice.call(c.children)
+
     rects.map(function (rect) {
-      rect.attributes.fill.value = changeFill(originFills, definedFills, rect.attributes.fill.value)
+      rect.attributes.fill.value = changeFill(originFills, definedFills, rgb2hex(window.getComputedStyle(rect).fill))
     })
   })
 
-  var tips = document.querySelectorAll('.contrib-legend.text-gray > ul.legend > li')
-  var alTips = Array.prototype.slice.call(tips)
-
-  alTips.map(function (t, i) {
+  // legends
+  var legends = document.querySelectorAll('.contrib-legend.text-gray > ul.legend > li')
+  Array.prototype.slice.call(legends).map(function (t, i) {
     t.style = 'background-color: ' + definedFills[i]
   })
 
-  var profileRollupContentRowSpans = document.querySelectorAll('ul.profile-rollup-content > li span.progress-bar')
-
-  Array.prototype.slice.call(profileRollupContentRowSpans).map((span) => {
-    span.style.backgroundColor = changeFill(originFills, definedFills, span.attributes.style.value.split(' ')[1])
+  // progress
+  var progressSpans = document.querySelectorAll('.Progress > span.Progress-item')
+  Array.prototype.slice.call(progressSpans).map((span) => {
+    span.style.backgroundColor = changeFill(
+      originFills,
+      definedFills,
+      rgb2hex(window.getComputedStyle(span).backgroundColor)
+    )
   })
 
   // Activity overview
   var activityOverviewGraph = document.querySelector('.js-activity-overview-graph-container > svg > g')
-
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
@@ -137,7 +139,7 @@ function changeIsoColors(definedFills, originFills) {
         )
       )
       .reduce((acc, d) => acc.concat(d), [])
-      .map(hexToRgb)
+      .map(hex2rgb)
       .map((d) => `${d.r},${d.g},${d.b}`)
   }
 
@@ -160,7 +162,7 @@ function changeIsoColors(definedFills, originFills) {
   ctx.putImageData(imageData, 0, 0)
 }
 
-function hexToRgb(hex) {
+function hex2rgb(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
 
   return result
@@ -170,4 +172,14 @@ function hexToRgb(hex) {
         b: parseInt(result[3], 16),
       }
     : null
+}
+
+function rgb2hex(rgb) {
+  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
+
+  function hex(x) {
+    return ('0' + parseInt(x).toString(16)).slice(-2)
+  }
+
+  return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
 }
