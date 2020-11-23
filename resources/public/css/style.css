@@ -37,6 +37,7 @@ body {
 
 .colorblock .picker-wrapper {
   position: absolute;
+  z-index: 2;
 }
 
 .fills,

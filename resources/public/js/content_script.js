@@ -24,16 +24,12 @@ function changeFill(originFills, definedFills, val) {
 }
 
 chrome.storage.sync.get(
-  [
-    'githubColorsContributionsUserDefinedFills',
-    'githubColorsContributionsUserSelectedFills',
-    'githubColorsContributionsPreDefinedFills',
-  ],
+  { gccUserDefinedFills: defaultFills.green, gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'none' },
   function (result) {
     chrome.storage.local.get(['isInject'], function (localResult) {
       var originFills
       if (localResult.isInject) {
-        originFills = result.githubColorsContributionsPreDefinedFills
+        originFills = result.gccPreDefinedFills
       } else {
         originFills = defaultFills.green
       }
@@ -45,10 +41,10 @@ chrome.storage.sync.get(
 
 function main(result, originFills) {
   var definedFills
-  if (result.githubColorsContributionsUserSelectedFills !== 'none') {
-    definedFills = defaultFills[result.githubColorsContributionsUserSelectedFills]
+  if (result.gccUserSelectedFills !== 'none') {
+    definedFills = defaultFills[result.gccUserSelectedFills]
   } else {
-    definedFills = result.githubColorsContributionsUserDefinedFills
+    definedFills = result.gccUserDefinedFills
   }
 
   // calendar
@@ -118,7 +114,7 @@ function main(result, originFills) {
   }, 500)
 
   chrome.storage.sync.set({
-    githubColorsContributionsPreDefinedFills: definedFills,
+    gccPreDefinedFills: definedFills,
   })
   chrome.storage.local.set({
     isInject: false,

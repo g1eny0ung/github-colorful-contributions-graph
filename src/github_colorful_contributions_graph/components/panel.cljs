@@ -8,15 +8,15 @@
                                                      set-selected-fill]]))
 
 (defonce user-defined-fill (r/atom (:green default-fills)))
-(defonce user-selected-fill (r/atom ""))
+(defonce user-selected-fill (r/atom "none"))
 
 (.get
  (.. js/chrome -storage -sync)
- #js ["githubColorsContributionsUserDefinedFills"
-      "githubColorsContributionsUserSelectedFills"]
+ (clj->js {:gccUserDefinedFills (:green default-fills)
+           :gccUserSelectedFills "none"})
  (fn [result] (let [clj-result (js->clj result)
-                    d-fill (get clj-result "githubColorsContributionsUserDefinedFills")
-                    s-fill (get clj-result "githubColorsContributionsUserSelectedFills")]
+                    d-fill (get clj-result "gccUserDefinedFills")
+                    s-fill (get clj-result "gccUserSelectedFills")]
                 (reset! user-defined-fill d-fill)
                 (reset! user-selected-fill s-fill))))
 
@@ -29,8 +29,8 @@
 (defn set-color [index]
   (fn [color] (swap! user-defined-fill assoc index (get (js->clj color) "hex"))
     (reset! user-selected-fill "none")
-    (set-selected-fill "none")
     (set-defined-fill @user-defined-fill)
+    (set-selected-fill "none")
     (reload-content-scripts)))
 
 (defn panel []
@@ -57,8 +57,12 @@
                                 [:li {:style {:background f}}])]]))]]
    [:div.buttons
     [:h3 "Options:"]
-    [:button {:on-click (fn [] (reset! user-defined-fill (:green default-fills))
+    [:button {:on-click (fn []
+                          (.set (.. js/chrome -storage -sync)
+                                (clj->js {:gccPreDefinedFills @user-defined-fill}))
+                          (reset! user-defined-fill (:green default-fills))
                           (reset! user-selected-fill "none")
                           (set-defined-fill @user-defined-fill)
                           (set-selected-fill "none")
-                          (reload-content-scripts))} "Reset colors"]]])
+                          (reload-content-scripts))}
+     "Reset colors"]]])

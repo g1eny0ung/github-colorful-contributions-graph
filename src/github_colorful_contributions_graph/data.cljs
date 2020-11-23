@@ -11,10 +11,8 @@
 
 (defn set-defined-fill [fill]
   (.set (.. js/chrome -storage -sync)
-        (clj->js {:githubColorsContributionsUserDefinedFills
-                  fill})))
+        (clj->js {:gccUserDefinedFills fill})))
 
 (defn set-selected-fill [key]
   (.set (.. js/chrome -storage -sync)
-        (clj->js {:githubColorsContributionsUserSelectedFills
-                  key})))
+        (clj->js {:gccUserSelectedFills key})))

@@ -253,6 +253,34 @@ chrome.accessibilityFeatures.virtualKeyboard;
 
 
 /** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.caretHighlight;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.cursorHighlight;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.cursorColor;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.dockedMagnifier;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.focusHighlight;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.selectToSpeak;
+
+
+/** @type {!ChromeSetting} */
+chrome.accessibilityFeatures.switchAccess;
+
+
+/** @type {!ChromeSetting} */
 chrome.accessibilityFeatures.animationPolicy;
 
 
@@ -2333,7 +2361,7 @@ chrome.enterprise.reportingPrivate.getPersistentSecret = function(callback) {};
  * Returns byte string associated with the data item stored in a platform
  * specific storage.
  * @param {!string} item Item name (can have containers separated by '/').
- * @param {(function(!ArrayBuffer): void)=} callback Called back with the
+ * @param {(function((!ArrayBuffer|undefined)): void)=} callback Called back with the
  *     response.
  */
 chrome.enterprise.reportingPrivate.getDeviceData = function(item, callback) {};
@@ -2342,7 +2370,7 @@ chrome.enterprise.reportingPrivate.getDeviceData = function(item, callback) {};
  * Stores byte string associated with the data item in a platform
  * specific storage.
  * @param {!string} item Item name (can have containers separated by '/').
- * @param {!ArrayBuffer} data Byte string to associate with the data item.
+ * @param {!ArrayBuffer|undefined} data Byte string to associate with the data item.
  * @param {(function(): void)=} callback Called back with the response.
  */
 chrome.enterprise.reportingPrivate.setDeviceData = function(
@@ -2368,6 +2396,7 @@ chrome.enterprise.reportingPrivate.SettingValue = {
  *   serialNumber: string,
  *   screenLockSecured: chrome.enterprise.reportingPrivate.SettingValue,
  *   diskEncrypted: chrome.enterprise.reportingPrivate.SettingValue,
+ *   macAddresses: (!Array<string>|undefined),
  * }}
  */
 chrome.enterprise.reportingPrivate.DeviceInfo;
@@ -2569,6 +2598,10 @@ chrome.runtime.Manifest.prototype.manifest_version;
 chrome.runtime.Manifest.prototype.description;
 
 
+/** @type {!Object<string, string>} */
+chrome.runtime.Manifest.prototype.icons;
+
+
 /** @type {!chrome.runtime.Manifest.Oauth2|undefined} */
 chrome.runtime.Manifest.prototype.oauth2;
 
@@ -2590,6 +2623,9 @@ chrome.runtime.Manifest.prototype.kiosk_only;
  * @type {boolean|undefined}
  */
 chrome.runtime.Manifest.prototype.kiosk_enabled;
+
+/** @type {string|undefined} */
+chrome.runtime.Manifest.prototype.replacement_web_app;
 
 
 
@@ -2697,8 +2733,63 @@ chrome.runtime.sendNativeMessage = function(
 
 
 /**
- *
- * @param {function(!Object)} callback
+ * The operating system chrome is running on.
+ * @see https://developer.chrome.com/apps/runtime#type-PlatformOs
+ * @enum {string}
+ */
+chrome.runtime.PlatformOs = {
+  ANDROID: '',
+  CROS: '',
+  LINUX: '',
+  MAC: '',
+  OPENBSD: '',
+  WIN: '',
+};
+
+
+/**
+ * The machine's processor architecture.
+ * @see https://developer.chrome.com/apps/runtime#type-PlatformArch
+ * @enum {string}
+ */
+chrome.runtime.PlatformArch = {
+  ARM: '',
+  ARM64: '',
+  MIPS: '',
+  MIPS64: '',
+  X86_32: '',
+  X86_64: '',
+};
+
+
+/**
+ * The native client architecture.
+ * @see https://developer.chrome.com/apps/runtime#type-PlatformNaclArch
+ * @enum {string}
+ */
+chrome.runtime.PlatformNaclArch = {
+  ARM: '',
+  MIPS: '',
+  MIPS64: '',
+  X86_32: '',
+  X86_64: '',
+};
+
+
+/**
+ * @see https://developer.chrome.com/apps/runtime#type-PlatformInfo
+ * @typedef {{
+ *   os: !chrome.runtime.PlatformOs,
+ *   arch: !chrome.runtime.PlatformArch,
+ *   nacl_arch: !chrome.runtime.PlatformNaclArch,
+ * }}
+ */
+chrome.runtime.PlatformInfo;
+
+
+/**
+ * @see https://developer.chrome.com/extensions/runtime#type-PlatformInfo
+ * @param {function(!chrome.runtime.PlatformInfo)} callback
  * @return {undefined}
  */
 chrome.runtime.getPlatformInfo = function(callback) {};
@@ -2717,6 +2808,10 @@ chrome.runtime.onConnect;
 
 /** @type {!chrome.runtime.PortEvent} */
 chrome.runtime.onConnectExternal;
+
+
+/** @type {!chrome.runtime.PortEvent} */
+chrome.runtime.onConnectNative;
 
 
 /** @type {!ChromeObjectEvent} */
@@ -2785,6 +2880,13 @@ chrome.tabs.TabStatus = {
   COMPLETE: '',
   LOADING: '',
 };
+
+
+/**
+ * @const {number}
+ * @see https://developer.chrome.com/extensions/tabs#property-TAB_ID_NONE
+ */
+chrome.tabs.TAB_ID_NONE = -1;
 
 
 /**
@@ -2973,8 +3075,8 @@ chrome.tabs.HighlightInfo;
 /**
  * @see https://developer.chrome.com/extensions/tabs#method-highlight
  * @param {!chrome.tabs.HighlightInfo} highlightInfo
- * @param {function(!ChromeWindow): void} callback Callback function invoked
- *    with each appropriate Window.
+ * @param {function(!ChromeWindow): void=} callback Callback function invoked
+ *    for each window whose tabs were highlighted.
  * @return {undefined}
  */
 chrome.tabs.highlight = function(highlightInfo, callback) {};
@@ -3432,9 +3534,12 @@ chrome.pageAction.hide = function(tabId) {};
 /**
  * @param {Object} details An object which has 'tabId' and either
  *     'imageData' or 'path'.
+ * @param {(function(): void)=} callback The callback function. If an error
+ * occurs setting the icon, chrome.runtime.lastError will be set to the error
+ * message.
  * @return {undefined}
  */
-chrome.pageAction.setIcon = function(details) {};
+chrome.pageAction.setIcon = function(details, callback) {};
 
 
 /**
@@ -3453,9 +3558,12 @@ chrome.pageAction.setTitle = function(details) {};
 
 /**
  * @param {number} tabId Tab Id.
+ * @param {(function(): void)=} callback The callback function. If an error
+ * occurs showing the pageAction, chrome.runtime.lastError will be set to the
+ * error message.
  * @return {undefined}
  */
-chrome.pageAction.show = function(tabId) {};
+chrome.pageAction.show = function(tabId, callback) {};
 
 
 /** @type {!ChromeEvent} */
@@ -4193,6 +4301,20 @@ chrome.management.setLaunchType = function(id, launchType, opt_callback) {};
 chrome.management.generateAppForLink = function(url, title, opt_callback) {};
 
 
+/**
+ * @param {function():void=} callback
+ * @return {undefined}
+ */
+chrome.management.installReplacementWebApp = function(callback) {};
+
+/**
+ * Event whose listeners take an ExtensionInfo parameter.
+ * @interface
+ * @extends {ChromeBaseEvent<function(!ExtensionInfo)>}
+ */
+function ChromeExtensionInfoEvent() {};
+
+
 /** @type {!ChromeExtensionInfoEvent} */
 chrome.management.onInstalled;
 
@@ -4911,6 +5033,57 @@ chrome.input.ime.setComposition = function(parameters, opt_callback) {};
  * @return {undefined}
  */
 chrome.input.ime.setCursorPosition = function(parameters, opt_callback) {};
+
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/input.ime#type-AssistiveWindowType
+ */
+chrome.input.ime.AssistiveWindowType = {
+  UNDO: '',
+};
+
+
+/**
+ * Properties of the assistive window.
+ * @typedef {{
+ *   type: !chrome.input.ime.AssistiveWindowType,
+ *   visible: boolean
+ * }}
+ * @see https://developer.chrome.com/extensions/input.ime#type-AssistiveWindowProperties
+ */
+chrome.input.ime.AssistiveWindowProperties;
+
+
+/**
+ * Shows/Hides an assistive window with the given properties.
+ * @param {{
+ *   contextID: number,
+ *   properties: !chrome.input.ime.AssistiveWindowProperties
+ * }} parameters
+ * @param {function(boolean): void=} callback Called when the operation
+ *     completes.
+ * @see https://developer.chrome.com/extensions/input.ime#method-setAssistiveWindowProperties
+ */
+chrome.input.ime.setAssistiveWindowProperties = function(
+    parameters, callback) {};
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/input.ime#type-AssistiveWindowButton
+ */
+chrome.input.ime.AssistiveWindowButton = {
+  UNDO: '',
+  ADD_TO_DICTIONARY: '',
+};
+
+
+/**
+ * This event is sent when a button in an assistive window is clicked.
+ * @type {!ChromeEvent}
+ * @see https://developer.chrome.com/extensions/input.ime#event-onAssistiveWindowButtonClicked
+ */
+chrome.input.ime.onAssistiveWindowButtonClicked;
 
 
 /**
@@ -6910,6 +7083,60 @@ chrome.system.display.clearTouchCalibration = function(id) {};
  */
 chrome.system.display.onDisplayChanged;
 
+/**
+ * @const
+ * @see https://developer.chrome.com/extensions/system_memory
+ */
+chrome.system.memory = {};
+
+/**
+ * Get physical memory information.
+ * @param {function(!chrome.system.memory.MemoryInfo)} callback
+ * @return {undefined}
+ */
+chrome.system.memory.getInfo = function(callback) {};
+
+/**
+ * @constructor
+ */
+chrome.system.memory.MemoryInfo = function() {};
+
+
+/** @type {number} */
+chrome.system.memory.MemoryInfo.prototype.capacity;
+
+
+/** @type {number} */
+chrome.system.memory.MemoryInfo.prototype.availableCapacity;
+
+/**
+ * @const
+ * @see http://developer.chrome.com/apps/system_network.html
+ */
+chrome.system.network = {};
+
+/**
+ * @param {function(!Array<!chrome.system.network.NetworkInterface>)} callback
+ * @return {undefined}
+ */
+chrome.system.network.getNetworkInterfaces = function(callback) {};
+
+/**
+ * @interface
+ */
+chrome.system.network.NetworkInterface = function() {};
+
+/**
+ * @const {string} The underlying name of the adapter. On *nix, this will
+ *     typically be "eth0", "wlan0", etc.
+ */
+chrome.system.network.NetworkInterface.prototype.name;
+
+/** @const {string} The available IPv4/6 address. */
+chrome.system.network.NetworkInterface.prototype.address;
+
+/** @const {number} The prefix length */
+chrome.system.network.NetworkInterface.prototype.prefixLength;
 
 /**
  * @const
@@ -7384,15 +7611,6 @@ ChromeWindow.prototype.state;
 
 /** @type {boolean} */
 ChromeWindow.prototype.alwaysOnTop;
-
-
-
-/**
- * Event whose listeners take an ExtensionInfo parameter.
- * @interface
- * @extends {ChromeBaseEvent<function(!ExtensionInfo)>}
- */
-function ChromeExtensionInfoEvent() {}
 
 
 /**
@@ -7924,11 +8142,23 @@ ProxyConfig.prototype.mode;
  * Listener will receive an object that maps each key to its StorageChange,
  * and the namespace ("sync" or "local") of the storage area the changes
  * are for.
- * @see https://developer.chrome.com/extensions/storage.html
+ * @see https://developer.chrome.com/extensions/storage#event-onChanged
  * @interface
  * @extends {ChromeBaseEvent<function(!Object<string, !StorageChange>, string)>}
  */
 function StorageChangeEvent() {}
+
+
+/**
+ * The event listener for StorageArea receives an Object mapping each
+ * key that changed to its corresponding StorageChange for that item.
+ *
+ * Listener will receive an object that maps each key to its StorageChange.
+ * @see https://developer.chrome.com/extensions/storage#type-StorageArea
+ * @interface
+ * @extends {ChromeBaseEvent<function(!Object<string, !StorageChange>)>}
+ */
+function StorageAreaChangeEvent() {}
 
 
 /**
@@ -8005,6 +8235,12 @@ StorageArea.prototype.remove = function(keys, opt_callback) {};
  */
 StorageArea.prototype.clear = function(opt_callback) {};
 
+
+/**
+ * Fired when one or more items change.
+ * @type {!StorageAreaChangeEvent}
+ */
+StorageArea.prototype.onChanged;
 
 
 /**
@@ -8271,6 +8507,642 @@ chrome.fileSystem.requestFileSystem = function(options, callback) {};
  * @return {undefined}
  */
 chrome.fileSystem.getVolumeList = function(callback) {};
+
+
+/**
+ * @const
+ * @see https://developer.chrome.com/extensions/fileSystemProvider
+ */
+chrome.fileSystemProvider = {};
+
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-ChangeType
+ */
+chrome.fileSystemProvider.ChangeType = {
+  CHANGED: '',
+  DELETED: '',
+};
+
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-CommonActionId
+ */
+chrome.fileSystemProvider.CommonActionId = {
+  OFFLINE_NOT_NECESSARY: '',
+  SAVE_FOR_OFFLINE: '',
+  SHARE: '',
+};
+
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-OpenFileMode
+ */
+chrome.fileSystemProvider.OpenFileMode = {
+  READ: '',
+  WRITE: '',
+};
+
+
+/**
+ * @enum {string}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-ProviderError
+ */
+chrome.fileSystemProvider.ProviderError = {
+  ABORT: '',
+  ACCESS_DENIED: '',
+  EXISTS: '',
+  FAILED: '',
+  INVALID_OPERATION: '',
+  INVALID_URL: '',
+  IN_USE: '',
+  IO: '',
+  NOT_A_DIRECTORY: '',
+  NOT_A_FILE: '',
+  NOT_EMPTY: '',
+  NOT_FOUND: '',
+  NO_MEMORY: '',
+  NO_SPACE: '',
+  OK: '',
+  SECURITY: '',
+  TOO_MANY_OPENED: '',
+};
+
+
+/**
+ * @constructor
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-EntryMetadata
+ */
+chrome.fileSystemProvider.EntryMetadata = function() {};
+
+
+/** @type {boolean|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.isDirectory;
+
+
+/** @type {string|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.name;
+
+
+/** @type {number|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.size;
+
+
+/** @type {!Date|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.modificationTime;
+
+
+/** @type {string|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.mimeType;
+
+
+/** @type {string|undefined} */
+chrome.fileSystemProvider.EntryMetadata.prototype.thumbnail;
+
+
+/**
+ * @constructor
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#type-FileSystemInfo
+ */
+chrome.fileSystemProvider.FileSystemInfo = function() {};
+
+
+/** @type {string} */
+chrome.fileSystemProvider.FileSystemInfo.prototype.fileSystemId;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.FileSystemInfo.prototype.displayName;
+
+
+/** @type {boolean} */
+chrome.fileSystemProvider.FileSystemInfo.prototype.writable;
+
+
+/** @type {number} */
+chrome.fileSystemProvider.FileSystemInfo.prototype.openedFilesLimit;
+
+
+/**
+ * @type {!Array<{
+ *   openRequestId: number,
+ *   filePath: string,
+ *   mode: !chrome.fileSystemProvider.OpenFileMode,
+ * }>}
+ */
+chrome.fileSystemProvider.FileSystemInfo.prototype.openedFiles;
+
+
+/** @type {boolean|undefined} */
+chrome.fileSystemProvider.FileSystemInfo.prototype.supportsNotifyTag;
+
+
+/**
+ * @type {!Array<!{
+ *   entryPath: string,
+ *   recursive: boolean,
+ *   lastTag: (string|undefined),
+ * }>}
+ */
+chrome.fileSystemProvider.FileSystemInfo.prototype.watchers;
+
+
+/**
+ * @param {string} fileSystemId
+ * @param {function(!chrome.fileSystemProvider.FileSystemInfo): void} callback
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-get
+ */
+chrome.fileSystemProvider.get = function(fileSystemId, callback) {};
+
+
+/**
+ * @param {function(!Array<!chrome.fileSystemProvider.FileSystemInfo>): void}
+ *     callback
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-getAll
+ */
+chrome.fileSystemProvider.getAll = function(callback) {};
+
+
+/**
+ * @record
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-mount
+ */
+chrome.fileSystemProvider.MountOptions;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.MountOptions.prototype.fileSystemId;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.MountOptions.prototype.displayName;
+
+
+/** @type {boolean|undefined} */
+chrome.fileSystemProvider.MountOptions.prototype.writable;
+
+
+/** @type {number|undefined} */
+chrome.fileSystemProvider.MountOptions.prototype.openedFilesLimit;
+
+
+/** @type {boolean|undefined} */
+chrome.fileSystemProvider.MountOptions.prototype.supportsNotifyTag;
+
+
+/** @type {boolean|undefined} */
+chrome.fileSystemProvider.MountOptions.prototype.persistent;
+
+
+/**
+ * @param {!chrome.fileSystemProvider.MountOptions} options
+ * @param {function(): void=} callback
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-mount
+ */
+chrome.fileSystemProvider.mount = function(options, callback) {};
+
+
+/**
+ * @record
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-notify
+ */
+chrome.fileSystemProvider.NotifyOptions;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.NotifyOptions.prototype.fileSystemId;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.NotifyOptions.prototype.observedPath;
+
+
+/** @type {boolean} */
+chrome.fileSystemProvider.NotifyOptions.prototype.recursive;
+
+
+/** @type {!chrome.fileSystemProvider.ChangeType} */
+chrome.fileSystemProvider.NotifyOptions.prototype.changeType;
+
+
+/**
+ * @type {!Array<{
+ *   entryPath: string,
+ *   changeType: !chrome.fileSystemProvider.ChangeType,
+ * }>|undefined}
+ */
+chrome.fileSystemProvider.NotifyOptions.prototype.changes;
+
+
+/** @type {string|undefined} */
+chrome.fileSystemProvider.NotifyOptions.prototype.tag;
+
+
+/**
+ * @param {!chrome.fileSystemProvider.NotifyOptions} options
+ * @param {function(): void=} callback
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-notify
+ */
+chrome.fileSystemProvider.notify = function(options, callback) {};
+
+
+/**
+ * @record
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#method-unmount
+ */
+chrome.fileSystemProvider.UnmountOptions;
+
+
+/** @type {string} */
+chrome.fileSystemProvider.UnmountOptions.prototype.fileSystemId;
+
+
+/**
+ * @param {!chrome.fileSystemProvider.UnmountOptions} options
+ * @param {function(): void=} callback
+ */
+chrome.fileSystemProvider.unmount = function(options, callback) {};
+
+/**
+ * FSP events that don't "return" values to the caller via onSuccess.
+ *
+ * @interface
+ * @template T
+ * @extends {ChromeBaseEvent<function(
+ *   T,
+ *   function(): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ */
+chrome.fileSystemProvider.VoidBaseEvent;
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   operationRequestId: number,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onAbortRequested
+ */
+chrome.fileSystemProvider.AbortRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.AbortRequestedEvent} */
+chrome.fileSystemProvider.onAbortRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   entryPath: string,
+ *   recursive: boolean,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onAddWatcherRequested
+ */
+chrome.fileSystemProvider.AddWatcherRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.AddWatcherRequestedEvent} */
+chrome.fileSystemProvider.onAddWatcherRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   openRequestId: number,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onCloseFileRequested
+ */
+chrome.fileSystemProvider.CloseFileRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.CloseFileRequestedEvent} */
+chrome.fileSystemProvider.onCloseFileRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onConfigureRequested
+ */
+chrome.fileSystemProvider.ConfigureRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.ConfigureRequestedEvent} */
+chrome.fileSystemProvider.onConfigureRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   sourcePath: string,
+ *   targetPath: string,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onCopyEntryRequested
+ */
+chrome.fileSystemProvider.CopyEntryRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.CopyEntryRequestedEvent} */
+chrome.fileSystemProvider.onCopyEntryRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   directoryPath: string,
+ *   recursive: boolean,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onCreateDirectoryRequested
+ */
+chrome.fileSystemProvider.CreateDirectoryRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.CreateDirectoryRequestedEvent} */
+chrome.fileSystemProvider.onCreateDirectoryRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   filePath: string,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onCreateFileRequested
+ */
+chrome.fileSystemProvider.CreateFileRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.CreateFileRequestedEvent} */
+chrome.fileSystemProvider.onCreateFileRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   entryPath: string,
+ *   recursive: boolean,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onDeleteEntryRequested
+ */
+chrome.fileSystemProvider.DeleteEntryRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.DeleteEntryRequestedEvent} */
+chrome.fileSystemProvider.onDeleteEntryRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   entryPaths: !Array<string>,
+ *   actionId: string,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onExecuteActionRequested
+ */
+chrome.fileSystemProvider.ExecuteActionRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.ExecuteActionRequestedEvent} */
+chrome.fileSystemProvider.onExecuteActionRequested;
+
+
+/**
+ * @interface
+ * @extends {ChromeBaseEvent<function(
+ *   {
+ *     fileSystemId: string,
+ *     requestId: number,
+ *     entryPaths: !Array<string>,
+ *   },
+ *   function(
+ *     !Array<!{
+ *       id: (string|chrome.fileSystemProvider.CommonActionId),
+ *       title: (string|undefined),
+ *     }>
+ *   ): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onGetActionsRequested
+ */
+chrome.fileSystemProvider.GetActionsRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.GetActionsRequestedEvent} */
+chrome.fileSystemProvider.onGetActionsRequested;
+
+
+/**
+ * @interface
+ * @extends {ChromeBaseEvent<function(
+ *   {
+ *     fileSystemId: string,
+ *     requestId: number,
+ *     entryPath: string,
+ *     isDirectory: boolean,
+ *     name: boolean,
+ *     size: boolean,
+ *     modificationTime: boolean,
+ *     mimeType: boolean,
+ *     thumbnail: boolean,
+ *   },
+ *   function(!chrome.fileSystemProvider.EntryMetadata): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onGetMetadataRequested
+ */
+chrome.fileSystemProvider.GetMetadataRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.GetMetadataRequestedEvent} */
+chrome.fileSystemProvider.onGetMetadataRequested;
+
+
+/**
+ * @interface
+ * @extends {ChromeBaseEvent<function(
+ *   function(): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onMountRequested
+ */
+chrome.fileSystemProvider.MountRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.MountRequestedEvent} */
+chrome.fileSystemProvider.onMountRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   sourcePath: string,
+ *   targetPath: string,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onMoveEntryRequested
+ */
+chrome.fileSystemProvider.MoveEntryRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.MoveEntryRequestedEvent} */
+chrome.fileSystemProvider.onMoveEntryRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   filePath: string,
+ *   mode: chrome.fileSystemProvider.OpenFileMode,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onOpenFileRequested
+ */
+chrome.fileSystemProvider.OpenFileRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.OpenFileRequestedEvent} */
+chrome.fileSystemProvider.onOpenFileRequested;
+
+
+/**
+ * @interface
+ * @extends {ChromeBaseEvent<function(
+ *   {
+ *     fileSystemId: string,
+ *     requestId: number,
+ *     directoryPath: string,
+ *     isDirectory: boolean,
+ *     name: boolean,
+ *     size: boolean,
+ *     modificationTime: boolean,
+ *     mimeType: boolean,
+ *     thumbnail: boolean,
+ *   },
+ *   function(
+ *     !Array<!chrome.fileSystemProvider.EntryMetadata>,
+ *     boolean
+ *   ): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onReadDirectoryRequested
+ */
+chrome.fileSystemProvider.ReadDirectoryRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.ReadDirectoryRequestedEvent} */
+chrome.fileSystemProvider.onReadDirectoryRequested;
+
+
+/**
+ * @interface
+ * @extends {ChromeBaseEvent<function(
+ *   {
+ *     fileSystemId: string,
+ *     requestId: number,
+ *     openRequestId: number,
+ *     offset: number,
+ *     length: number,
+ *   },
+ *   function(!ArrayBuffer, boolean): void,
+ *   function(!chrome.fileSystemProvider.ProviderError): void
+ * )>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onReadFileRequested
+ */
+chrome.fileSystemProvider.ReadFileRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.ReadFileRequestedEvent} */
+chrome.fileSystemProvider.onReadFileRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   entryPath: string,
+ *   recursive: boolean,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onRemoveWatcherRequested
+ */
+chrome.fileSystemProvider.RemoveWatcherRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.RemoveWatcherRequestedEvent} */
+chrome.fileSystemProvider.onRemoveWatcherRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   filePath: string,
+ *   length: number,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onTruncateRequested
+ */
+chrome.fileSystemProvider.TruncateRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.TruncateRequestedEvent} */
+chrome.fileSystemProvider.onTruncateRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onUnmountRequested
+ */
+chrome.fileSystemProvider.UnmountRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.UnmountRequestedEvent} */
+chrome.fileSystemProvider.onUnmountRequested;
+
+
+/**
+ * @interface
+ * @extends {chrome.fileSystemProvider.VoidBaseEvent<{
+ *   fileSystemId: string,
+ *   requestId: number,
+ *   openRequestId: number,
+ *   offset: number,
+ *   data: !ArrayBuffer,
+ * }>}
+ * @see https://developer.chrome.com/extensions/fileSystemProvider#event-onWriteFileRequested
+ */
+chrome.fileSystemProvider.WriteFileRequestedEvent;
+
+
+/** @type {!chrome.fileSystemProvider.WriteFileRequestedEvent} */
+chrome.fileSystemProvider.onWriteFileRequested;
 
 
 /**
@@ -10535,6 +11407,20 @@ chrome.inlineInstallPrivate.install = function(id, opt_callback) {};
  */
 chrome.inputMethodPrivate = {};
 
+/**
+ * @enum {string}
+ */
+chrome.inputMethodPrivate.InputModeType = {
+  NO_KEYBOARD: '',
+  TEXT: '',
+  TEL: '',
+  URL: '',
+  EMAIL: '',
+  NUMERIC: '',
+  DECIMAL: '',
+  SEARCH: '',
+};
+
 
 /**
  * @enum {string}
@@ -10579,6 +11465,8 @@ chrome.inputMethodPrivate.InputContext = function() {};
 /** @type {number} */
 chrome.inputMethodPrivate.InputContext.prototype.contextID;
 
+/** @type {chrome.inputMethodPrivate.InputModeType} */
+chrome.inputMethodPrivate.InputContext.prototype.mode;
 
 /** @type {chrome.inputMethodPrivate.InputContextType} */
 chrome.inputMethodPrivate.InputContext.prototype.type;
