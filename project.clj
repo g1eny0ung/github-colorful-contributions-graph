@@ -1,5 +1,5 @@
-(defproject github-colorful-contributions-graph "2.1.4"
-  :description "A Chrome extension for customizing the colors of the GitHub contributions' graph."
+(defproject github-colorful-contributions-graph "2.1.5"
+  :description "A Chrome extension for customizing the colors of the GitHub contributions graph."
   :url "http://github.com/g1eny0ung/github-colorful-contributions-graph"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
