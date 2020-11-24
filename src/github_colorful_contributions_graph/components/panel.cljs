@@ -58,8 +58,11 @@
    [:div.buttons
     [:h3 "Options:"]
     [:button {:on-click (fn []
-                          (.set (.. js/chrome -storage -sync)
-                                (clj->js {:gccPreDefinedFills @user-defined-fill}))
+                          (let [fill (if (not= @user-selected-fill "none")
+                                       ((keyword @user-selected-fill) default-fills)
+                                       @user-defined-fill)]
+                            (.set (.. js/chrome -storage -sync)
+                                  (clj->js {:gccPreDefinedFills fill})))
                           (reset! user-defined-fill (:green default-fills))
                           (reset! user-selected-fill "none")
                           (set-defined-fill @user-defined-fill)
