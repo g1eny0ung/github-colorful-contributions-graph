@@ -9,6 +9,7 @@ chrome.runtime.onInstalled.addListener(function () {
         conditions: [
           new chrome.declarativeContent.PageStateMatcher({
             pageUrl: { hostPrefix: 'github.com', schemes: ['https'] },
+            css: ['div.js-yearly-contributions'],
           }),
         ],
         actions: [new chrome.declarativeContent.ShowPageAction()],

@@ -3,7 +3,7 @@
   "version": "2.1.4",
   "description": "💚💙💜💛❤️ Customize the colors of the GitHub contributions graph.",
   "manifest_version": 2,
-  "permissions": ["storage", "declarativeContent", "tabs", "activeTab"],
+  "permissions": ["storage", "declarativeContent", "activeTab"],
   "background": {
     "scripts": ["js/background.js"],
     "persistent": false
