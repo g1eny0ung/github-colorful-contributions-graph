@@ -14,7 +14,7 @@ This extension also can be used with [https://github.com/jasonlong/isometric-con
 ./bundle.sh
 ```
 
-Then unpack the `g-c-c.zip` and load `bundle/` in `chrome://extensions`.
+Then load the `bundle/` dir in `chrome://extensions`.
 
 ## License
 
