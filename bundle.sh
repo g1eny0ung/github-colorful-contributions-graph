@@ -35,4 +35,4 @@ if [ -f "g-c-c.zip" ]; then
   rm g-c-c.zip 
 fi
 
-zip -r g-c-c bundle
+zip -r g-c-c bundle -x *.DS_Store
