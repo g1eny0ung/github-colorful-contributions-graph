@@ -18,6 +18,6 @@ Then load the `bundle/` dir in `chrome://extensions`.
 
 ## License
 
-Copyright © 2020 g1eny0ung
+Copyright © 2021 g1eny0ung
 
 Distributed under the Eclipse Public License either version 1.0 or (at your option) any later version.
