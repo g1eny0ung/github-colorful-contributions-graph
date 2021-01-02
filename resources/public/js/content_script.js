@@ -1,10 +1,51 @@
-var defaultFills = {
-  green: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-  blue: ['#ebedf0', '#b4daff', '#75baff', '#0080ff', '#0056ac'],
-  purple: ['#ebedf0', '#dbb7ff', '#b76eff', '#8000ff', '#5200a4'],
-  orange: ['#ebedf0', '#ffd9b3', '#ffaf5f', '#ff8000', '#aa5500'],
-  red: ['#ebedf0', '#ffa3a3', '#ff6868', '#ff0000', '#9c0101'],
+var theme = document.documentElement.getAttribute('data-color-mode')
+var defaultFills = initDefaultFills(theme)
+function initDefaultFills(theme) {
+  return theme === 'light'
+    ? {
+        green: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+        blue: ['#ebedf0', '#b4daff', '#75baff', '#0080ff', '#0056ac'],
+        purple: ['#ebedf0', '#dbb7ff', '#b76eff', '#8000ff', '#5200a4'],
+        orange: ['#ebedf0', '#ffd9b3', '#ffaf5f', '#ff8000', '#aa5500'],
+        red: ['#ebedf0', '#ffa3a3', '#ff6868', '#ff0000', '#9c0101'],
+      }
+    : {
+        green: ['#161b22', '#01311f', '#034525', '#0f6d31', '#00c647'],
+        blue: ['#161b22', '#011c57', '#04256c', '#13388c', '#013cc5'],
+        purple: ['#161b22', '#310358', '#43056d', '#59128c', '#7501c5'],
+        orange: ['#161b22', '#331101', '#632a05', '#834610', '#c55501'],
+        red: ['#161b22', '#380101', '#610404', '#820f0f', '#c50101'],
+      }
 }
+
+function initThemeObserver() {
+  if (typeof themeObserved !== 'undefined') {
+    return
+  } else {
+    chrome.storage.sync.set({ theme })
+
+    const observer = new MutationObserver(function (mutationsList) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'data-color-mode') {
+          var theme = mutation.target.getAttribute(mutation.attributeName)
+
+          defaultFills = initDefaultFills(theme)
+          chrome.storage.sync.get(
+            { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
+            function (result) {
+              main(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills])
+            }
+          )
+          chrome.storage.sync.set({ theme })
+        }
+      }
+    })
+
+    observer.observe(document.documentElement, { attributes: true })
+    themeObserved = true
+  }
+}
+initThemeObserver()
 
 function changeFill(originFills, definedFills, val) {
   switch (val) {
@@ -23,30 +64,20 @@ function changeFill(originFills, definedFills, val) {
   }
 }
 
-chrome.storage.sync.get(
-  { gccUserDefinedFills: defaultFills.green, gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'none' },
-  function (result) {
-    chrome.storage.local.get(['isInject'], function (localResult) {
-      var originFills
-      if (localResult.isInject) {
-        originFills = result.gccPreDefinedFills
-      } else {
-        originFills = defaultFills.green
-      }
+chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' }, function (result) {
+  chrome.storage.local.get(['isInject'], function (localResult) {
+    var originFills
+    if (localResult.isInject) {
+      originFills = result.gccPreDefinedFills
+    } else {
+      originFills = defaultFills.green
+    }
 
-      main(result, originFills)
-    })
-  }
-)
+    main(originFills, defaultFills[result.gccUserSelectedFills])
+  })
+})
 
-function main(result, originFills) {
-  var definedFills
-  if (result.gccUserSelectedFills !== 'none') {
-    definedFills = defaultFills[result.gccUserSelectedFills]
-  } else {
-    definedFills = result.gccUserDefinedFills
-  }
-
+function main(originFills, definedFills) {
   // calendar
   var contribColumns = document.querySelectorAll('svg.js-calendar-graph-svg > g > g')
   if (contribColumns.length === 0) {
@@ -67,7 +98,7 @@ function main(result, originFills) {
   })
 
   // progress
-  var progressSpans = document.querySelectorAll('.Progress > span.Progress-item')
+  var progressSpans = document.querySelectorAll('.Progress > span.Progress-item:not(.progress-pjax-loader-bar)')
   Array.prototype.slice.call(progressSpans).map((span) => {
     span.style.backgroundColor = changeFill(
       originFills,
@@ -102,7 +133,7 @@ function main(result, originFills) {
       Array.prototype.slice.call(icStatsSpans).map((span) => {
         span.style = `color: ${definedFills[4]} !important;`
       })
-      changeIsoColors(definedFills, originFills)
+      changeIsoColors(originFills, definedFills)
       clearInterval(icStatsId)
     } else {
       count++
@@ -121,7 +152,7 @@ function main(result, originFills) {
   })
 }
 
-function changeIsoColors(definedFills, originFills) {
+function changeIsoColors(originFills, definedFills) {
   var iso = document.querySelector('canvas#isometric-contributions')
   var ctx = iso.getContext('2d')
   var imageData = ctx.getImageData(0, 0, iso.width, iso.height)

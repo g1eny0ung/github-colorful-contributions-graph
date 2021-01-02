@@ -6,18 +6,21 @@
 
   :min-lein-version "2.7.1"
 
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.520"]
-                 [reagent "0.8.1"]
-                 [cljsjs/react-color "2.13.8-0"]
-                 [cljsjs/react-onclickoutside "6.7.1-1"]]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/clojurescript "1.10.773"]
+                 [reagent "0.10.0"]]
 
   :plugins [[lein-ancient "0.6.15"]]
 
   :source-paths ["src"]
 
-  :aliases {"fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev"]
-            "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "min"]}
+  :aliases {"fig"       ["trampoline" "run" "-m" "figwheel.main"]
+            "fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev"]
+            "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "min"]} ;; -bo: build-once
 
-  :profiles {:dev {:dependencies [[com.bhauman/figwheel-main "0.2.3"]
-                                  [com.bhauman/rebel-readline-cljs "0.1.4"]]}})
+  :profiles {:dev {:dependencies [[com.bhauman/figwheel-main "0.2.12"]
+                                  [com.bhauman/rebel-readline-cljs "0.1.4"]]
+
+                   :resource-paths ["target"]
+                   ;; need to add the compiled assets to the :clean-targets
+                   :clean-targets ^{:protect false} ["target"]}})

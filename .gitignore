@@ -12,6 +12,8 @@ pom.xml
 .cpcache/
 .rebel_readline_history
 
+.lein-failures
+
 .DS_Store
 .idea
 *.iml

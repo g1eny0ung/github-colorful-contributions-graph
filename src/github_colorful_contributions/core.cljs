@@ -1,21 +1,21 @@
-(ns ^:figwheel-hooks github-colorful-contributions-graph.core
+(ns ^:figwheel-hooks github-colorful-contributions.core
   (:require [goog.dom :as gdom]
-            [reagent.core :as reagent]
-            [github-colorful-contributions-graph.components.header :refer [header]]
-            [github-colorful-contributions-graph.components.panel :refer [panel]]
-            [github-colorful-contributions-graph.components.footer :refer [footer]]))
+            [reagent.dom :as rdom]
+            [github-colorful-contributions.components.header :refer [header]]
+            [github-colorful-contributions.components.panel :refer [panel]]
+            [github-colorful-contributions.components.footer :refer [footer]]))
 
-(defn github-colorful-contributions-graph []
+(defn get-app-element []
+  (gdom/getElement "app"))
+
+(defn github-colorful-contributions []
   [:div.container
    [header]
    [panel]
    [footer]])
 
-(defn get-app-element []
-  (gdom/getElement "app"))
-
 (defn mount [el]
-  (reagent/render-component [github-colorful-contributions-graph] el))
+  (rdom/render [github-colorful-contributions] el))
 
 (defn mount-app-element []
   (when-let [el (get-app-element)]

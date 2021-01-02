@@ -1,4 +1,4 @@
 ^{:watch-dirs ["src"]
   :css-dirs ["resources/public/css"]
   :open-url false}
-{:main github-colorful-contributions-graph.core}
+{:main github-colorful-contributions.core}

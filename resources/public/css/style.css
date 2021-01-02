@@ -1,72 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+:root[data-theme='dark'] {
+  background: #0d1117;
+}
 
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Poiret One', cursive;
+:root[data-theme='dark'] .title {
+  color: #c9d1d9;
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  width: 360px;
+  width: 450px;
 }
 
 .gcc-header {
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid #ccc;
+  padding-bottom: 0;
 }
 
-.blocks {
+.gcc-panel {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.fills > div {
   display: flex;
-  justify-content: center;
-  margin: 1rem 0;
 }
 
-.colorblock {
-  position: relative;
+.fills input[type='radio'] {
+  margin-right: 1rem;
 }
 
-.colorblock .block {
-  width: 48px;
-  height: 48px;
-  margin-right: 8px;
-  cursor: pointer;
-}
-
-.colorblock .picker-wrapper {
-  position: absolute;
-  z-index: 2;
-}
-
-.fills,
-.buttons {
-  margin-left: 3rem;
-}
-
-.default-fills > div {
-  display: flex;
-  align-items: center;
-}
-
-.default-fills input {
-  margin-right: -1rem;
-  margin-bottom: 4px;
-  z-index: 1;
-}
-
-.default-fills ul {
-  list-style: none;
-}
-
-.default-fills ul > li {
+.fills ul > li {
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  border-radius: 4px;
 }
 
 .gcc-footer {
-  text-align: center;
+  padding: 1.5rem;
+  padding-top: 3rem;
 }
