@@ -33,7 +33,7 @@ function initThemeObserver() {
           chrome.storage.sync.get(
             { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
             function (result) {
-              main(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills])
+              main(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills], theme)
             }
           )
           chrome.storage.sync.set({ theme })
@@ -73,11 +73,11 @@ chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelecte
       originFills = defaultFills.green
     }
 
-    main(originFills, defaultFills[result.gccUserSelectedFills])
+    main(originFills, defaultFills[result.gccUserSelectedFills], theme)
   })
 })
 
-function main(originFills, definedFills) {
+function main(originFills, definedFills, theme) {
   // calendar
   var contribColumns = document.querySelectorAll('svg.js-calendar-graph-svg > g > g')
   if (contribColumns.length === 0) {
@@ -112,11 +112,11 @@ function main(originFills, definedFills) {
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
-        child.attributes.fill.value = definedFills[2]
-        child.style.stroke = definedFills[2]
+        child.attributes.fill.value = theme === 'light' ? definedFills[2] : definedFills[4]
+        child.style.stroke = theme === 'light' ? definedFills[2] : definedFills[4]
       }
       if (child.nodeName === 'line') {
-        child.style.stroke = definedFills[4]
+        child.style.stroke = theme === 'light' ? definedFills[4] : definedFills[2]
       }
       if (child.nodeName === 'ellipse') {
         child.style.stroke = definedFills[4]
@@ -160,11 +160,14 @@ function changeIsoColors(originFills, definedFills) {
 
   function helper(val) {
     return val
-      .map((d) =>
-        Object.values(new obelisk.CubeColor().getByHorizontalColor(parseInt('0x' + d.replace('#', '')))).map((d) =>
-          Number(d).toString(16).slice(2)
-        )
-      )
+      .map((d) => {
+        var color = new obelisk.CubeColor().getByHorizontalColor(parseInt('0x' + d.replace('#', ''))) // border / borderHighlight / horizontal / left / right
+        var colorValues = Object.values(color)
+          .map((d) => Number(d).toString(16).slice(2))
+          .slice(1) // Remove border value
+
+        return colorValues
+      })
       .reduce((acc, d) => acc.concat(d), [])
       .map(hex2rgb)
       .map((d) => `${d.r},${d.g},${d.b}`)
