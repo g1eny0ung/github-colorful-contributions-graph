@@ -22,7 +22,7 @@ function initThemeObserver() {
   if (typeof themeObserved !== 'undefined') {
     return
   } else {
-    chrome.storage.sync.set({ theme })
+    chrome.storage.sync.set({ theme }) // Set the theme in advance for use by popup
 
     const observer = new MutationObserver(function (mutationsList) {
       for (const mutation of mutationsList) {
