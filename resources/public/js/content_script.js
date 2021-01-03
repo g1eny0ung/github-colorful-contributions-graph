@@ -99,13 +99,15 @@ function main(originFills, definedFills, theme) {
 
   // progress
   var progressSpans = document.querySelectorAll('.Progress > span.Progress-item:not(.progress-pjax-loader-bar)')
-  Array.prototype.slice.call(progressSpans).map((span) => {
-    span.style.backgroundColor = changeFill(
-      originFills,
-      definedFills,
-      rgb2hex(window.getComputedStyle(span).backgroundColor)
-    )
-  })
+  if (progressSpans.length) {
+    Array.prototype.slice.call(progressSpans).map((span) => {
+      span.style.backgroundColor = changeFill(
+        originFills,
+        definedFills,
+        rgb2hex(window.getComputedStyle(span).backgroundColor)
+      )
+    })
+  }
 
   // Activity overview
   var activityOverviewGraph = document.querySelector('.js-activity-overview-graph-container > svg > g')
