@@ -1,16 +1,20 @@
+var lightGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+var darkGreen = ['#161b22', '#01311f', '#034525', '#0f6d31', '#00c647']
+
 var theme = document.documentElement.getAttribute('data-color-mode')
+
 var defaultFills = initDefaultFills(theme)
 function initDefaultFills(theme) {
   return theme === 'light'
     ? {
-        green: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+        green: lightGreen,
         blue: ['#ebedf0', '#b4daff', '#75baff', '#0080ff', '#0056ac'],
         purple: ['#ebedf0', '#dbb7ff', '#b76eff', '#8000ff', '#5200a4'],
         orange: ['#ebedf0', '#ffd9b3', '#ffaf5f', '#ff8000', '#aa5500'],
         red: ['#ebedf0', '#ffa3a3', '#ff6868', '#ff0000', '#9c0101'],
       }
     : {
-        green: ['#161b22', '#01311f', '#034525', '#0f6d31', '#00c647'],
+        green: darkGreen,
         blue: ['#161b22', '#011c57', '#04256c', '#13388c', '#013cc5'],
         purple: ['#161b22', '#310358', '#43056d', '#59128c', '#7501c5'],
         orange: ['#161b22', '#331101', '#632a05', '#834610', '#c55501'],
@@ -60,7 +64,7 @@ function changeFill(originFills, definedFills, val) {
     case originFills[4]:
       return definedFills[4]
     default:
-      return null
+      return val
   }
 }
 
@@ -102,8 +106,8 @@ function main(originFills, definedFills, theme) {
   if (progressSpans.length) {
     Array.prototype.slice.call(progressSpans).map((span) => {
       span.style.backgroundColor = changeFill(
-        originFills,
-        definedFills,
+        arraysEqual(originFills, darkGreen) ? lightGreen : originFills,
+        arraysEqual(definedFills, darkGreen) ? lightGreen : definedFills,
         rgb2hex(window.getComputedStyle(span).backgroundColor)
       )
     })
@@ -214,4 +218,9 @@ function rgb2hex(rgb) {
   }
 
   return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
+}
+
+function arraysEqual(a1, a2) {
+  /* WARNING: arrays must not contain {objects} or behavior may be undefined */
+  return JSON.stringify(a1) == JSON.stringify(a2)
 }
