@@ -21,10 +21,16 @@
 
 .fills > div {
   display: flex;
+  align-items: center;
+  margin: 0.5rem 0;
 }
 
 .fills input[type='radio'] {
   margin-right: 1rem;
+}
+
+.fills ul {
+  display: flex;
 }
 
 .fills ul > li {
