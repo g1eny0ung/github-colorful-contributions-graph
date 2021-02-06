@@ -91,7 +91,7 @@ function main(originFills, definedFills, theme) {
     var rects = Array.prototype.slice.call(c.children)
 
     rects.map(function (rect) {
-      rect.attributes.fill.value = changeFill(originFills, definedFills, rgb2hex(window.getComputedStyle(rect).fill))
+      rect.style.fill = changeFill(originFills, definedFills, rgb2hex(window.getComputedStyle(rect).fill))
     })
   })
 
