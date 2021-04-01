@@ -35,7 +35,10 @@ function initThemeObserver() {
 
           defaultFills = initDefaultFills(theme)
           chrome.storage.sync.get(
-            { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
+            {
+              gccPreDefinedFills: defaultFills.green,
+              gccUserSelectedFills: 'green',
+            },
             function (result) {
               main(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills], theme)
             }
@@ -96,9 +99,9 @@ function main(originFills, definedFills, theme) {
   })
 
   // legends
-  var legends = document.querySelectorAll('.contrib-legend.text-gray > ul.legend > li')
+  var legends = document.querySelectorAll('.js-calendar-graph .float-right rect')
   Array.prototype.slice.call(legends).map(function (t, i) {
-    t.style = 'background-color: ' + definedFills[i]
+    t.style.fill = definedFills[i]
   })
 
   // progress
@@ -133,7 +136,7 @@ function main(originFills, definedFills, theme) {
   // Isometric Contributions
   let count = 0
   const icStatsId = setInterval(() => {
-    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper span.text-green')
+    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper .color-text-success')
 
     if (icStatsSpans.length > 0) {
       Array.prototype.slice.call(icStatsSpans).map((span) => {
