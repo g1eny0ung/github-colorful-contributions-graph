@@ -1,14 +1,13 @@
 {
   "name": "GitHub Colorful Contributions",
-  "version": "3.0.5",
   "description": "💚💙💜💛❤️ Customize the colors of the GitHub contributions graph.",
-  "manifest_version": 2,
-  "permissions": ["storage", "declarativeContent", "activeTab"],
+  "version": "4.0.0",
+  "manifest_version": 3,
+  "permissions": ["storage", "declarativeContent", "activeTab", "scripting"],
   "background": {
-    "scripts": ["js/background.js"],
-    "persistent": false
+    "service_worker": "js/background.js"
   },
-  "page_action": {
+  "action": {
     "default_popup": "index.html",
     "default_icon": {
       "16": "images/16x16.png",
@@ -17,7 +16,6 @@
       "128": "images/128x128.png"
     }
   },
-  "content_security_policy": "script-src 'self' 'unsafe-eval' 'sha256-CfMPE8ys/ylJ5D9qKG0a9/UejrcczMr4/EmFCbVbgcc=' 'sha256-7GyfxFwhDqspMO35xMvEB7bA3QCdVa7f4oAztxWTMX4=' 'sha256-0HfD910aEZL6A7TSfI5O2W4AWzbyQPICslVPUHYXiqA=' 'sha256-x25vVz0U+p6+7yRuCgpw8ZdXZLTkd5dVn/CHCuN8gjc=' 'sha256-G6IVkG6kpsC0mzSSlqLK5lAp3K3nvA+9NcM2KIof0is=' 'sha256-bzLm2XK2Q5zlhSxMMAXI6MoQxuyDpTci6ZzgUPbxjWM=' 'sha256-LYZPh8NEsA5+aSZy3ui7LOKPZ1/0MVX00J128dm9SOA=' 'sha256-XsBu2nEJnS7x/Izq1v7dzy3Ze5myJMHvg4zukh/R1Yk=' 'sha256-YxJmO695FTUJ1h40dadJ2DgXd+21IEH2dC2iXU59taQ='; object-src 'self'",
   "content_scripts": [
     {
       "matches": ["https://github.com/*"],

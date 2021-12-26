@@ -3,6 +3,8 @@ chrome.runtime.onInstalled.addListener(function () {
     isInject: false,
   })
 
+  chrome.action.disable()
+
   chrome.declarativeContent.onPageChanged.removeRules(undefined, function () {
     chrome.declarativeContent.onPageChanged.addRules([
       {
@@ -24,9 +26,12 @@ chrome.runtime.onMessage.addListener(function (message) {
       {
         isInject: true,
       },
-      function () {
-        chrome.tabs.executeScript({
-          file: 'js/content_script.js',
+      async function () {
+        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+
+        chrome.scripting.executeScript({
+          target: { tabId: tab.id },
+          files: ['js/content_script.js'],
         })
       }
     )
