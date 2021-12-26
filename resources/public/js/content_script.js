@@ -54,23 +54,6 @@ function initThemeObserver() {
 }
 initThemeObserver()
 
-function changeFill(originFills, definedFills, val) {
-  switch (val) {
-    case originFills[0]:
-      return definedFills[0]
-    case originFills[1]:
-      return definedFills[1]
-    case originFills[2]:
-      return definedFills[2]
-    case originFills[3]:
-      return definedFills[3]
-    case originFills[4]:
-      return definedFills[4]
-    default:
-      return val
-  }
-}
-
 chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' }, function (result) {
   chrome.storage.local.get(['isInject'], function (localResult) {
     var originFills
@@ -159,6 +142,23 @@ function main(originFills, definedFills, theme) {
   chrome.storage.local.set({
     isInject: false,
   })
+}
+
+function changeFill(originFills, definedFills, val) {
+  switch (val) {
+    case originFills[0]:
+      return definedFills[0]
+    case originFills[1]:
+      return definedFills[1]
+    case originFills[2]:
+      return definedFills[2]
+    case originFills[3]:
+      return definedFills[3]
+    case originFills[4]:
+      return definedFills[4]
+    default:
+      return val
+  }
 }
 
 function changeIsoColors(originFills, definedFills) {
