@@ -20,4 +20,3 @@ pom.xml
 /resources/public/cljs-out/
 bundle/*
 !bundle/index.html
-*.zip

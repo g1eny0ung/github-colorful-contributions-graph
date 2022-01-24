@@ -10,11 +10,7 @@ This extension also can be used with [https://github.com/jasonlong/isometric-con
 
 ## Local Use
 
-```sh
-./bundle.sh
-```
-
-Then load the `bundle/` dir in `chrome://extensions`.
+Download the `g-c-c.zip` and load in `chrome://extensions`.
 
 ## License
 
