@@ -119,7 +119,7 @@ function main(originFills, definedFills, theme) {
   // Isometric Contributions
   let count = 0
   const icStatsId = setInterval(() => {
-    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper .color-text-success')
+    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper .color-fg-success')
 
     if (icStatsSpans.length > 0) {
       Array.prototype.slice.call(icStatsSpans).map((span) => {
