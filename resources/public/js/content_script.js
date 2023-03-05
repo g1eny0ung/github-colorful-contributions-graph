@@ -69,15 +69,22 @@ chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelecte
 
 function main(originFills, definedFills, theme) {
   // calendar
-  var contribColumns = document.querySelectorAll('svg.js-calendar-graph-svg > g > g')
-  if (contribColumns.length === 0) {
+  const weeks = Array(53)
+    .fill()
+    .map((_, i) => i)
+    .map((i) => document.querySelectorAll(`.js-calendar-graph-table tbody td.ContributionCalendar-day[data-ix="${i}"]`))
+  if (weeks.length === 0) {
     return
   }
-  Array.prototype.slice.call(contribColumns).map(function (c) {
-    var rects = Array.prototype.slice.call(c.children)
+  weeks.forEach(function (week) {
+    var rects = Array.prototype.slice.call(week)
 
-    rects.map(function (rect) {
-      rect.style.fill = changeFill(originFills, definedFills, rgb2hex(window.getComputedStyle(rect).fill))
+    rects.forEach(function (rect) {
+      rect.style.backgroundColor = changeFill(
+        originFills,
+        definedFills,
+        rgb2hex(window.getComputedStyle(rect).backgroundColor)
+      )
     })
   })
 
