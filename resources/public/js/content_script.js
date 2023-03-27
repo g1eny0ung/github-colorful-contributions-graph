@@ -3,7 +3,6 @@ var darkGreen = ['#161b22', '#01311f', '#034525', '#0f6d31', '#00c647']
 
 var theme = document.documentElement.getAttribute('data-color-mode')
 
-var defaultFills = initDefaultFills(theme)
 function initDefaultFills(theme) {
   return theme === 'light'
     ? {
@@ -22,7 +21,13 @@ function initDefaultFills(theme) {
       }
 }
 
+var defaultFills = initDefaultFills(theme)
+
 function initThemeObserver() {
+  if (!document.querySelector('.js-yearly-contributions')) {
+    return
+  }
+
   if (typeof themeObserved !== 'undefined') {
     return
   } else {
@@ -40,7 +45,7 @@ function initThemeObserver() {
               gccUserSelectedFills: 'green',
             },
             function (result) {
-              main(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills], theme)
+              run(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills], theme)
             }
           )
           chrome.storage.sync.set({ theme })
@@ -52,22 +57,25 @@ function initThemeObserver() {
     themeObserved = true
   }
 }
+
 initThemeObserver()
 
-chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' }, function (result) {
-  chrome.storage.local.get(['isInject'], function (localResult) {
-    var originFills
-    if (localResult.isInject) {
-      originFills = result.gccPreDefinedFills
-    } else {
-      originFills = defaultFills.green
-    }
+if (document.querySelector('.js-yearly-contributions')) {
+  chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' }, function (result) {
+    chrome.storage.local.get(['isInject'], function (localResult) {
+      var originFills
+      if (localResult.isInject) {
+        originFills = result.gccPreDefinedFills
+      } else {
+        originFills = defaultFills.green
+      }
 
-    main(originFills, defaultFills[result.gccUserSelectedFills], theme)
+      run(originFills, defaultFills[result.gccUserSelectedFills], theme)
+    })
   })
-})
+}
 
-function main(originFills, definedFills, theme) {
+function run(originFills, definedFills, theme) {
   // calendar
   const weeks = Array(53)
     .fill()
