@@ -23,11 +23,52 @@ function initDefaultFills(theme) {
 
 var defaultFills = initDefaultFills(theme)
 
-function initThemeObserver() {
-  if (!document.querySelector('.js-yearly-contributions')) {
-    return
-  }
+var maxTries = 5
+var tries = 0
+var intervalId
 
+// If intervalId is null, it means the page has already loaded.
+if (intervalId === null) {
+  main()
+} else {
+  intervalId = setInterval(() => {
+    main()
+
+    if (++tries === maxTries) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+  }, 1000)
+}
+
+function main() {
+  if (document.querySelector('.js-yearly-contributions')) {
+    if (intervalId) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+
+    chrome.storage.sync.get(
+      { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
+      function (result) {
+        chrome.storage.local.get(['isInject'], function (localResult) {
+          var originFills
+          if (localResult.isInject) {
+            originFills = result.gccPreDefinedFills
+          } else {
+            originFills = defaultFills.green
+          }
+
+          run(originFills, defaultFills[result.gccUserSelectedFills], theme)
+        })
+      }
+    )
+
+    initThemeObserver()
+  }
+}
+
+function initThemeObserver() {
   if (typeof themeObserved !== 'undefined') {
     return
   } else {
@@ -58,23 +99,6 @@ function initThemeObserver() {
   }
 }
 
-initThemeObserver()
-
-if (document.querySelector('.js-yearly-contributions')) {
-  chrome.storage.sync.get({ gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' }, function (result) {
-    chrome.storage.local.get(['isInject'], function (localResult) {
-      var originFills
-      if (localResult.isInject) {
-        originFills = result.gccPreDefinedFills
-      } else {
-        originFills = defaultFills.green
-      }
-
-      run(originFills, defaultFills[result.gccUserSelectedFills], theme)
-    })
-  })
-}
-
 function run(originFills, definedFills, theme) {
   // calendar
   const weeks = Array(53)
@@ -97,9 +121,9 @@ function run(originFills, definedFills, theme) {
   })
 
   // legends
-  var legends = document.querySelectorAll('.js-calendar-graph .float-right rect')
+  var legends = document.querySelectorAll('.js-calendar-graph .float-right div')
   Array.prototype.slice.call(legends).map(function (t, i) {
-    t.style.fill = definedFills[i]
+    t.style.backgroundColor = definedFills[i]
   })
 
   // progress
