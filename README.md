@@ -6,11 +6,12 @@ This extension also can be used with [https://github.com/jasonlong/isometric-con
 
 ## Download
 
-[https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief](https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief)
+[Install from the Chrome Web Store](https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief)
 
 ## Local Use
 
-Download the `g-c-c.zip` and load in `chrome://extensions`.
+1. Download the `g-c-c.zip` and extract it.
+2. Load the extension by navigating to `chrome://extensions`, enable "Developer mode", and click on "Load unpacked". Select the extracted folder.
 
 ## License
 
