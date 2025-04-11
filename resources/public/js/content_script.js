@@ -1,27 +1,40 @@
-var lightGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
-var darkGreen = ['#161b22', '#01311f', '#034525', '#0f6d31', '#00c647']
+var progressGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
+var defaultGreen = [0, 1, 2, 3, 4].map((i) =>
+  window.getComputedStyle(document.body).getPropertyValue(`--contribution-default-bgColor-${i}`)
+)
 
-var theme = document.documentElement.getAttribute('data-color-mode')
+var colorMode = document.documentElement.getAttribute('data-color-mode')
+var darkTheme = document.documentElement.getAttribute('data-dark-theme')
 
-function initDefaultFills(theme) {
-  return theme === 'light'
+function initDefaultFills(colorMode, darkTheme) {
+  if (colorMode === 'dark' && darkTheme === 'dark_dimmed') {
+    return {
+      green: defaultGreen,
+      blue: [defaultGreen[0], '#1d5494', '#1b6ac8', '#3d8af5', '#76b1ff'],
+      purple: [defaultGreen[0], '#382276', '#4a2b9b', '#742de1', '#a371f7'],
+      orange: [defaultGreen[0], '#533018', '#723511', '#ae5622', '#e87c39'],
+      red: [defaultGreen[0], '#522020', '#6b2020', '#9e2f2f', '#e25a5a'],
+    }
+  }
+
+  return colorMode === 'light'
     ? {
-        green: lightGreen,
-        blue: ['#ebedf0', '#b4daff', '#75baff', '#0080ff', '#0056ac'],
-        purple: ['#ebedf0', '#dbb7ff', '#b76eff', '#8000ff', '#5200a4'],
-        orange: ['#ebedf0', '#ffd9b3', '#ffaf5f', '#ff8000', '#aa5500'],
-        red: ['#ebedf0', '#ffa3a3', '#ff6868', '#ff0000', '#9c0101'],
+        green: defaultGreen,
+        blue: [defaultGreen[0], '#a4c8ff', '#388bfd', '#0366d6', '#00499e'],
+        purple: [defaultGreen[0], '#d2b4ff', '#a371f7', '#7431d8', '#5b349d'],
+        orange: [defaultGreen[0], '#ffab70', '#f66a0e', '#c84600', '#b04800'],
+        red: [defaultGreen[0], '#ff7b72', '#f85149', '#c93c37', '#9c1e1e'],
       }
     : {
-        green: darkGreen,
-        blue: ['#161b22', '#011c57', '#04256c', '#13388c', '#013cc5'],
-        purple: ['#161b22', '#310358', '#43056d', '#59128c', '#7501c5'],
-        orange: ['#161b22', '#331101', '#632a05', '#834610', '#c55501'],
-        red: ['#161b22', '#380101', '#610404', '#820f0f', '#c50101'],
+        green: defaultGreen,
+        blue: [defaultGreen[0], '#1c3251', '#2d5999', '#4993ff', '#8bb8ff'],
+        purple: [defaultGreen[0], '#33274d', '#5b3b82', '#8957e5', '#b989ff'],
+        orange: [defaultGreen[0], '#3d2013', '#7d3a11', '#c45e1c', '#f6854d'],
+        red: [defaultGreen[0], '#37181a', '#6e2226', '#ae3636', '#f35d5d'],
       }
 }
 
-var defaultFills = initDefaultFills(theme)
+var defaultFills = initDefaultFills(colorMode, darkTheme)
 
 var maxTries = 5
 var tries = 0
@@ -59,7 +72,7 @@ function main() {
             originFills = defaultFills.green
           }
 
-          run(originFills, defaultFills[result.gccUserSelectedFills], theme)
+          run(originFills, defaultFills[result.gccUserSelectedFills])
         })
       }
     )
@@ -72,21 +85,21 @@ function initThemeObserver() {
   if (typeof themeObserved !== 'undefined') {
     return
   } else {
-    chrome.storage.sync.set({ theme }) // Set the theme in advance for use by popup
+    chrome.storage.sync.set({ theme: colorMode }) // Set the theme in advance for use by popup
 
     const observer = new MutationObserver(function (mutationsList) {
       for (const mutation of mutationsList) {
         if (mutation.type === 'attributes' && mutation.attributeName === 'data-color-mode') {
           var theme = mutation.target.getAttribute(mutation.attributeName)
 
-          defaultFills = initDefaultFills(theme)
+          defaultFills = initDefaultFills(theme, darkTheme)
           chrome.storage.sync.get(
             {
               gccPreDefinedFills: defaultFills.green,
               gccUserSelectedFills: 'green',
             },
             function (result) {
-              run(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills], theme)
+              run(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills])
             }
           )
           chrome.storage.sync.set({ theme })
@@ -99,7 +112,7 @@ function initThemeObserver() {
   }
 }
 
-function run(originFills, definedFills, theme) {
+function run(originFills, definedFills) {
   // calendar
   const weeks = Array(53)
     .fill()
@@ -112,11 +125,9 @@ function run(originFills, definedFills, theme) {
     var rects = Array.prototype.slice.call(week)
 
     rects.forEach(function (rect) {
-      rect.style.backgroundColor = changeFill(
-        originFills,
-        definedFills,
-        rgb2hex(window.getComputedStyle(rect).backgroundColor)
-      )
+      const level = rect.getAttribute('data-level')
+
+      rect.style.backgroundColor = definedFills[parseInt(level, 10)]
     })
   })
 
@@ -130,11 +141,10 @@ function run(originFills, definedFills, theme) {
   var progressSpans = document.querySelectorAll('.Progress > span.Progress-item:not(.progress-pjax-loader-bar)')
   if (progressSpans.length) {
     Array.prototype.slice.call(progressSpans).map((span) => {
-      span.style.backgroundColor = changeFill(
-        arraysEqual(originFills, darkGreen) ? lightGreen : originFills,
-        arraysEqual(definedFills, darkGreen) ? lightGreen : definedFills,
-        rgb2hex(window.getComputedStyle(span).backgroundColor)
-      )
+      const currentColor = span.getAttribute('data-bg-color') || span.getAttribute('style').split(' ')[2]
+
+      span.style.backgroundColor = definedFills[progressGreen.indexOf(currentColor)]
+      span.setAttribute('data-bg-color', currentColor)
     })
   }
 
@@ -143,14 +153,14 @@ function run(originFills, definedFills, theme) {
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
-        child.attributes.fill.value = theme === 'light' ? definedFills[2] : definedFills[4]
-        child.style.stroke = theme === 'light' ? definedFills[2] : definedFills[4]
+        child.attributes.fill.value = definedFills[3]
+        child.style.stroke = definedFills[3]
       }
       if (child.nodeName === 'line') {
-        child.style.stroke = theme === 'light' ? definedFills[4] : definedFills[2]
+        child.style.stroke = definedFills[3]
       }
       if (child.nodeName === 'ellipse') {
-        child.style.stroke = definedFills[4]
+        child.style.stroke = definedFills[3]
       }
     })
   }
@@ -181,23 +191,6 @@ function run(originFills, definedFills, theme) {
   chrome.storage.local.set({
     isInject: false,
   })
-}
-
-function changeFill(originFills, definedFills, val) {
-  switch (val) {
-    case originFills[0]:
-      return definedFills[0]
-    case originFills[1]:
-      return definedFills[1]
-    case originFills[2]:
-      return definedFills[2]
-    case originFills[3]:
-      return definedFills[3]
-    case originFills[4]:
-      return definedFills[4]
-    default:
-      return val
-  }
 }
 
 function changeIsoColors(originFills, definedFills) {
@@ -250,19 +243,4 @@ function hex2rgb(hex) {
         b: parseInt(result[3], 16),
       }
     : null
-}
-
-function rgb2hex(rgb) {
-  rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/)
-
-  function hex(x) {
-    return ('0' + parseInt(x).toString(16)).slice(-2)
-  }
-
-  return '#' + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3])
-}
-
-function arraysEqual(a1, a2) {
-  /* WARNING: arrays must not contain {objects} or behavior may be undefined */
-  return JSON.stringify(a1) == JSON.stringify(a2)
 }
