@@ -1,9 +1,9 @@
-(ns ^:figwheel-hooks github-colorful-contributions.core
+(ns ^:figwheel-hooks gh-colorful-contributions.core
   (:require [goog.dom :as gdom]
             [reagent.dom :as rdom]
-            [github-colorful-contributions.components.header :refer [header]]
-            [github-colorful-contributions.components.panel :refer [panel]]
-            [github-colorful-contributions.components.footer :refer [footer]]))
+            [gh-colorful-contributions.components.header :refer [header]]
+            [gh-colorful-contributions.components.panel :refer [panel]]
+            [gh-colorful-contributions.components.footer :refer [footer]]))
 
 (defn get-app-element []
   (gdom/getElement "app"))
@@ -11,6 +11,7 @@
 (defn github-colorful-contributions []
   [:div.container
    [header]
+   [:hr]
    [panel]
    [footer]])
 

@@ -11,12 +11,13 @@ pom.xml
 .nrepl-port
 .cpcache/
 .rebel_readline_history
+resources/public/cljs-out/
+.clj-kondo/.cache
 
 .lein-failures
 
 .DS_Store
 .idea
 *.iml
-/resources/public/cljs-out/
-bundle/*
-!bundle/index.html
+build/*
+!build/index.html

@@ -1,9 +1,5 @@
-:root[data-theme='dark'] {
+[data-theme='dark'] {
   background: #0d1117;
-}
-
-:root[data-theme='dark'] .title {
-  color: #c9d1d9;
 }
 
 .container {
@@ -21,7 +17,6 @@
 
 .fills > div {
   display: flex;
-  align-items: center;
   margin: 0.5rem 0;
 }
 
@@ -31,17 +26,12 @@
 
 .fills ul {
   display: flex;
+  gap: 8px;
 }
 
 .fills ul > li {
   display: inline-block;
   width: 24px;
   height: 24px;
-  margin-right: 8px;
   border-radius: 4px;
-}
-
-.gcc-footer {
-  padding: 1.5rem;
-  padding-top: 3rem;
 }
