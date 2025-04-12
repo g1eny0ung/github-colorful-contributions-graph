@@ -1,10 +1,16 @@
 {
   "name": "GitHub Colorful Contributions",
   "description": "💚💙💜💛❤️ Customize the colors of the GitHub contributions graph.",
-  "version": "4.0.4",
+  "version": "5.0.0",
   "manifest_version": 3,
-  "permissions": ["declarativeContent", "storage", "scripting"],
-  "host_permissions": ["https://github.com/*"],
+  "permissions": [
+    "declarativeContent",
+    "storage",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://github.com/*"
+  ],
   "background": {
     "service_worker": "js/background.js"
   },
@@ -19,8 +25,13 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
-      "js": ["js/obelisk.min.js", "js/content_script.js"]
+      "matches": [
+        "https://github.com/*"
+      ],
+      "js": [
+        "js/obelisk.min.js",
+        "js/content_script.js"
+      ]
     }
   ],
   "icons": {
