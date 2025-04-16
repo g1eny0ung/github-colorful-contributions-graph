@@ -15,6 +15,7 @@
     "service_worker": "js/background.js"
   },
   "action": {
+    "default_state": "disabled",
     "default_popup": "index.html",
     "default_icon": {
       "16": "images/16x16.png",
