@@ -1,7 +1,7 @@
 {
   "name": "GitHub Colorful Contributions",
   "description": "💚💙💜💛❤️ Customize the colors of the GitHub contributions graph.",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "manifest_version": 3,
   "permissions": [
     "declarativeContent",
