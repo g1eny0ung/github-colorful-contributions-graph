@@ -1,6 +1,6 @@
 var progressGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 var defaultGreen = [0, 1, 2, 3, 4].map((i) =>
-  window.getComputedStyle(document.body).getPropertyValue(`--contribution-default-bgColor-${i}`)
+  window.getComputedStyle(document.body).getPropertyValue(`--contribution-default-bgColor-${i}`),
 )
 
 var colorMode = document.documentElement.getAttribute('data-color-mode')
@@ -74,7 +74,7 @@ function main() {
 
           run(originFills, defaultFills[result.gccUserSelectedFills])
         })
-      }
+      },
     )
 
     initThemeObserver()
@@ -100,7 +100,7 @@ function initThemeObserver() {
             },
             function (result) {
               run(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills])
-            }
+            },
           )
           chrome.storage.sync.set({ theme })
         }
@@ -202,12 +202,10 @@ function changeIsoColors(originFills, definedFills) {
   function helper(val) {
     return val
       .map((d) => {
-        var color = new obelisk.CubeColor().getByHorizontalColor(parseInt('0x' + d.replace('#', ''))) // border / borderHighlight / horizontal / left / right
-        var colorValues = Object.values(color)
-          .map((d) => Number(d).toString(16).slice(2))
-          .slice(1) // Remove border value
+        var color = new obelisk.CubeColor().getByHorizontalColor(parseInt('0x' + d.replace('#', ''))) // border, borderHighlight, left, right, horizontal
+        var colorVals = Object.values(color).map((d) => Number(d).toString(16).slice(2))
 
-        return colorValues
+        return colorVals
       })
       .reduce((acc, d) => acc.concat(d), [])
       .map(hex2rgb)
@@ -217,17 +215,33 @@ function changeIsoColors(originFills, definedFills) {
   var originFillsObelisk = helper(originFills)
   var definedFillsObelisk = helper(definedFills)
 
+  /**
+   * 2026-02-18 update: I optimized the code to handle unrecognized colors.
+   *
+   * 1. The code should avoid handling '0,0,0' color.
+   * 2. The code should handle the case when the original color is not in the originFillsObelisk. Use the previous color instead.
+   */
+  var prevRgb = '0,0,0'
   for (var i = 0; i < data.length; i += 4) {
     var originalRgb = `${data[i]},${data[i + 1]},${data[i + 2]}`
-    var hit = originFillsObelisk.indexOf(originalRgb)
 
-    if (hit > 0) {
-      var rgb = definedFillsObelisk[hit].split(',').map((d) => parseInt(d, 10))
+    if (originalRgb !== '0,0,0') {
+      var hit = originFillsObelisk.indexOf(originalRgb)
 
-      data[i] = rgb[0]
-      data[i + 1] = rgb[1]
-      data[i + 2] = rgb[2]
+      if (hit > 0) {
+        var rgb = definedFillsObelisk[hit].split(',').map((d) => parseInt(d, 10))
+
+        data[i] = rgb[0]
+        data[i + 1] = rgb[1]
+        data[i + 2] = rgb[2]
+      } else if (prevRgb !== '0,0,0') {
+        data[i] = data[i - 4]
+        data[i + 1] = data[i - 3]
+        data[i + 2] = data[i - 2]
+      }
     }
+
+    prevRgb = originalRgb
   }
 
   ctx.putImageData(imageData, 0, 0)
