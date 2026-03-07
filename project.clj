@@ -6,19 +6,21 @@
 
   :min-lein-version "2.7.1"
 
-  :plugins [[dev.weavejester/lein-cljfmt "0.13.0"]]
+  :plugins [[dev.weavejester/lein-cljfmt "0.16.1"]]
 
   :dependencies [[org.clojure/clojure "1.12.0"]
                  [org.clojure/clojurescript "1.11.132"]
                  [org.clojure/data.json "2.5.1"]
                  [cljsjs/react "18.3.1-1"]
                  [cljsjs/react-dom "18.3.1-1"]
-                 [reagent "1.2.0" ]]
+                 [reagent "1.3.0" ]]
 
   :source-paths ["src"]
 
-  :aliases {"fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]
+  :aliases {"fig"       ["trampoline" "run" "-m" "figwheel.main"]
+            "fig:build" ["trampoline" "run" "-m" "figwheel.main" "-b" "dev" "-r"]
             "fig:clean" ["run" "-m" "figwheel.main" "--clean" "dev"]
+            ;; https://clojurescript.org/reference/compiler-options#optimizations
             "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "min"]
             "fig:test"  ["run" "-m" "figwheel.main" "-co" "test.cljs.edn" "-m" "gh-colorful-contributions.test-runner"]}
 
@@ -26,5 +28,6 @@
                                   [com.bhauman/figwheel-main "0.2.20"]
                                   [com.bhauman/rebel-readline-cljs "0.1.4"]]
                    :resource-paths ["target"]
-                   :clean-targets ^{:protect false} [:target-path "resources/public/cljs-out"]
-                   }})
+
+                   ;; need to add the compiled assets to the :clean-targets
+                   :clean-targets ^{:protect false} ["target" "resources/public/cljs-out"]}})
