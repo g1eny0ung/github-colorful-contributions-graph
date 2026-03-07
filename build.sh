@@ -24,7 +24,7 @@ fi
 cp -r resources/public/js build
 
 # Copy the main file
-cp resources/public/cljs-out/min-main.js build/js/gh-colorful-contributions.js
+cp resources/public/cljs-out/min-main.js build/js/gcc.js
 
 echo "Move manifest.json ---"
 cp resources/public/manifest.json build/

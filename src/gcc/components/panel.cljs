@@ -1,7 +1,7 @@
-(ns gh-colorful-contributions.components.panel
+(ns gcc.components.panel
   (:require
    [reagent.core :as r]
-   [gh-colorful-contributions.data :refer [default-fills
+   [gcc.data :refer [default-fills
                                            dark-fills
                                            set-selected-fill]]))
 

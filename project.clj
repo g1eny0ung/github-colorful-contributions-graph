@@ -8,8 +8,8 @@
 
   :plugins [[dev.weavejester/lein-cljfmt "0.16.1"]]
 
-  :dependencies [[org.clojure/clojure "1.12.0"]
-                 [org.clojure/clojurescript "1.11.132"]
+  :dependencies [[org.clojure/clojure "1.12.4"]
+                 [org.clojure/clojurescript "1.12.134"]
                  [org.clojure/data.json "2.5.1"]
                  [cljsjs/react "18.3.1-1"]
                  [cljsjs/react-dom "18.3.1-1"]
@@ -22,7 +22,7 @@
             "fig:clean" ["run" "-m" "figwheel.main" "--clean" "dev"]
             ;; https://clojurescript.org/reference/compiler-options#optimizations
             "fig:min"   ["run" "-m" "figwheel.main" "-O" "advanced" "-bo" "min"]
-            "fig:test"  ["run" "-m" "figwheel.main" "-co" "test.cljs.edn" "-m" "gh-colorful-contributions.test-runner"]}
+            "fig:test"  ["run" "-m" "figwheel.main" "-co" "test.cljs.edn" "-m" "gcc.test-runner"]}
 
   :profiles {:dev {:dependencies [[org.slf4j/slf4j-nop "2.0.16"]
                                   [com.bhauman/figwheel-main "0.2.20"]

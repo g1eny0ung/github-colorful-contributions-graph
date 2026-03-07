@@ -14,4 +14,4 @@
   ;; :launch-js ["/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" "--headless" "--disable-gpu" "--disable-dev-shm" "--remote-debugging-port=9222" "--repl" :open-url]
 
   }
-{:main gh-colorful-contributions.test-runner}
+{:main gcc.test-runner}

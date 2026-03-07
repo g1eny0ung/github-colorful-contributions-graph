@@ -1,4 +1,4 @@
-(ns gh-colorful-contributions.data)
+(ns gcc.data)
 
 (def default-fills {:green ["#eff2f5", "#aceebb", "#4ac26b", "#2da44e", "#116329"]
                     :blue ["#eff2f5", "#a4c8ff", "#388bfd", "#0366d6", "#00499e"]

@@ -1,4 +1,4 @@
-(ns gh-colorful-contributions.components.header)
+(ns gcc.components.header)
 
 (defn header []
   [:header.section.gcc-header

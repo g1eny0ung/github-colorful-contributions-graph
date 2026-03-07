@@ -1,4 +1,4 @@
-(ns gh-colorful-contributions.components.footer)
+(ns gcc.components.footer)
 
 (defn footer []
   [:footer.section
