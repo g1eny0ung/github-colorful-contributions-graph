@@ -4,8 +4,8 @@
  ;; Set the server port https://figwheel.org/config-options#ring-server-options
  ;; :ring-server-options {:port 9500}
 
- ;; Target directory https://figwheel.org/config-options#target-dir
- ;; you may want to set this to resources if you are using Leiningen
+ ;; Change the target directory from the "target" to "resources"
+ ;; https://figwheel.org/config-options#target-dir
  :target-dir "resources"
 
  ;; Server Ring Handler (optional) https://figwheel.org/docs/ring-handler.html

@@ -31,7 +31,7 @@ chrome.runtime.onMessage.addListener(function (message) {
           target: { tabId: currentTab.id },
           files: ['js/content_script.js'],
         })
-      }
+      },
     )
   }
 })
