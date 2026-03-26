@@ -11,7 +11,9 @@ This extension also can be used with [https://github.com/jasonlong/isometric-con
 ## Local Use
 
 1. Download the `g-c-c.zip` and extract it.
-2. Load the extension by navigating to `chrome://extensions`, enable "Developer mode", and click on "Load unpacked". Select the extracted folder.
+1. Navigate to `chrome://extensions`
+1. Enable "Developer mode"
+1. Click on "Load unpacked". Select the extracted folder.
 
 ## License
 
