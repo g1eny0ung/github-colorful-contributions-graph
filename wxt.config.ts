@@ -9,7 +9,7 @@ export default defineConfig({
   manifest: {
     name: '__MSG_extName__',
     description: '__MSG_extDescription__',
-    version: '5.0.2',
+    version: '6.0.0',
     default_locale: 'en',
     permissions: ['declarativeContent', 'storage', 'scripting'],
     host_permissions: ['https://github.com/*'],
