@@ -14,7 +14,7 @@ export const darkFills = {
   red: ['#151b23', '#37181a', '#6e2226', '#ae3636', '#f35d5d'],
 }
 
-export function reloadContentScripts() {
+export function reloadContentScript() {
   browser.runtime.sendMessage('runInject')
 }
 
@@ -23,5 +23,5 @@ export function setSelectedFill(key: keyof typeof defaultFills) {
     gccUserSelectedFills: key,
   })
 
-  reloadContentScripts()
+  reloadContentScript()
 }

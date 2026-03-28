@@ -16,7 +16,10 @@
       (result: { theme: 'light' | 'dark'; gccUserSelectedFills: string }) => {
         userSelectedFill = result.gccUserSelectedFills
         pageTheme = result.theme
-        document.documentElement.setAttribute('data-theme', result.theme)
+        document.documentElement.setAttribute(
+          'data-theme',
+          result.theme === 'dark' ? 'forest' : 'light',
+        )
       },
     )
   })
