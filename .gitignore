@@ -1,23 +1,28 @@
-pom.xml
-*jar
-/lib/
-/classes/
-/out/
-/target/
-.lein-deps-sum
-.lein-repl-history
-.lein-plugins/
-.repl
-.nrepl-port
-.cpcache/
-.rebel_readline_history
-resources/public/cljs-out/
-.clj-kondo/.cache
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-.lein-failures
+node_modules
+dist
+stats.html
+stats-*.json
+.wxt
+web-ext.config.ts
 
-.DS_Store
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
 .idea
-*.iml
-build/*
-!build/index.html
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+pnpm-lock.yaml
