@@ -1,22 +1,24 @@
 export default defineBackground(() => {
-  browser.runtime.onInstalled.addListener(function () {
-    browser.declarativeContent.onPageChanged.removeRules(
-      undefined,
-      function () {
-        browser.declarativeContent.onPageChanged.addRules([
-          {
-            conditions: [
-              new browser.declarativeContent.PageStateMatcher({
-                pageUrl: { hostEquals: 'github.com', schemes: ['https'] },
-                css: ['.js-yearly-contributions'],
-              }),
-            ],
-            actions: [new browser.declarativeContent.ShowAction()],
-          },
-        ])
-      },
-    )
-  })
+  if (!import.meta.env.FIREFOX) {
+    browser.runtime.onInstalled.addListener(function () {
+      browser.declarativeContent.onPageChanged.removeRules(
+        undefined,
+        function () {
+          browser.declarativeContent.onPageChanged.addRules([
+            {
+              conditions: [
+                new browser.declarativeContent.PageStateMatcher({
+                  pageUrl: { hostEquals: 'github.com', schemes: ['https'] },
+                  css: ['.js-yearly-contributions'],
+                }),
+              ],
+              actions: [new browser.declarativeContent.ShowAction()],
+            },
+          ])
+        },
+      )
+    })
+  }
 
   browser.storage.local.set({
     isInject: false,

@@ -5,11 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "wxt",
-    "dev:firefox": "wxt -b firefox",
+    "dev:firefox": "wxt -b firefox --mv3 -c wxt.config.firefox.ts",
     "build": "wxt build",
-    "build:firefox": "wxt build -b firefox",
+    "build:firefox": "wxt build -b firefox --mv3 -c wxt.config.firefox.ts",
     "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
+    "zip:firefox": "wxt zip -b firefox --mv3 -c wxt.config.firefox.ts",
+    "zip:edge": "wxt zip -b edge -c wxt.config.edge.ts",
+    "zip:all": "bun run --parallel zip zip:firefox zip:edge",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "postinstall": "wxt prepare",
     "prepare": "husky"

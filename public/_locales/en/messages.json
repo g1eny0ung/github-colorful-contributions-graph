@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "💚💙💜💛❤️ Customize the colors of the GitHub contributions graph."
+  },
+  "extDescriptionEdge": {
+    "message": "Customize the colors of the GitHub contributions graph."
   }
 }

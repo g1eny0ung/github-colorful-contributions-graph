@@ -4,5 +4,8 @@
   },
   "extDescription": {
     "message": "💚💙💜💛❤️ 自定义GitHub贡献图的颜色。"
+  },
+  "extDescriptionEdge": {
+    "message": "自定义GitHub贡献图的颜色。"
   }
 }
