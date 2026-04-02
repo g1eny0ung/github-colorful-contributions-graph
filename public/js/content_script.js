@@ -30,8 +30,8 @@ function darkDimmedProfile(defaultGreen) {
 
 // auto, light, dark
 var colorMode = document.documentElement.getAttribute('data-color-mode')
-var isDarkMode
 var darkTheme = document.documentElement.getAttribute('data-dark-theme')
+var isDarkMode
 
 function initDefaultFills(colorMode, darkTheme) {
   var defaultGreen = [0, 1, 2, 3, 4].map((i) =>

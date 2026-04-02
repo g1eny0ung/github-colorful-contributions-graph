@@ -4,7 +4,7 @@ import { type UserManifest, defineConfig } from 'wxt'
 export const manifest: UserManifest = {
   name: '__MSG_extName__',
   description: '__MSG_extDescription__',
-  version: '6.0.0',
+  version: '6.0.1',
   default_locale: 'en',
   permissions: ['declarativeContent', 'storage', 'scripting'],
   host_permissions: ['https://github.com/*'],
