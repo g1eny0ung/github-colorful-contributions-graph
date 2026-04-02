@@ -1,40 +1,69 @@
 var progressGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
-var defaultGreen = [0, 1, 2, 3, 4].map((i) =>
-  window.getComputedStyle(document.body).getPropertyValue(`--contribution-default-bgColor-${i}`),
-)
 
+function lightProfile(defaultGreen) {
+  return {
+    green: defaultGreen,
+    blue: [defaultGreen[0], '#a4c8ff', '#388bfd', '#0366d6', '#00499e'],
+    purple: [defaultGreen[0], '#d2b4ff', '#a371f7', '#7431d8', '#5b349d'],
+    orange: [defaultGreen[0], '#ffab70', '#f66a0e', '#c84600', '#b04800'],
+    red: [defaultGreen[0], '#ff7b72', '#f85149', '#c93c37', '#9c1e1e'],
+  }
+}
+function darkProfile(defaultGreen) {
+  return {
+    green: defaultGreen,
+    blue: [defaultGreen[0], '#1c3251', '#2d5999', '#4993ff', '#8bb8ff'],
+    purple: [defaultGreen[0], '#33274d', '#5b3b82', '#8957e5', '#b989ff'],
+    orange: [defaultGreen[0], '#3d2013', '#7d3a11', '#c45e1c', '#f6854d'],
+    red: [defaultGreen[0], '#37181a', '#6e2226', '#ae3636', '#f35d5d'],
+  }
+}
+function darkDimmedProfile(defaultGreen) {
+  return {
+    green: defaultGreen,
+    blue: [defaultGreen[0], '#1d5494', '#1b6ac8', '#3d8af5', '#76b1ff'],
+    purple: [defaultGreen[0], '#382276', '#4a2b9b', '#742de1', '#a371f7'],
+    orange: [defaultGreen[0], '#533018', '#723511', '#ae5622', '#e87c39'],
+    red: [defaultGreen[0], '#522020', '#6b2020', '#9e2f2f', '#e25a5a'],
+  }
+}
+
+// auto, light, dark
 var colorMode = document.documentElement.getAttribute('data-color-mode')
+var isDarkMode
 var darkTheme = document.documentElement.getAttribute('data-dark-theme')
 
 function initDefaultFills(colorMode, darkTheme) {
-  if (colorMode === 'dark' && darkTheme === 'dark_dimmed') {
-    return {
-      green: defaultGreen,
-      blue: [defaultGreen[0], '#1d5494', '#1b6ac8', '#3d8af5', '#76b1ff'],
-      purple: [defaultGreen[0], '#382276', '#4a2b9b', '#742de1', '#a371f7'],
-      orange: [defaultGreen[0], '#533018', '#723511', '#ae5622', '#e87c39'],
-      red: [defaultGreen[0], '#522020', '#6b2020', '#9e2f2f', '#e25a5a'],
+  var defaultGreen = [0, 1, 2, 3, 4].map((i) =>
+    window
+      .getComputedStyle(document.body)
+      .getPropertyValue(`--contribution-default-bgColor-${i}`),
+  )
+
+  if (colorMode === 'auto') {
+    isDarkMode =
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+
+    if (isDarkMode) {
+      return darkTheme === 'dark_dimmed'
+        ? darkDimmedProfile(defaultGreen)
+        : darkProfile(defaultGreen)
+    } else {
+      return lightProfile(defaultGreen)
     }
   }
 
-  return colorMode === 'light'
-    ? {
-        green: defaultGreen,
-        blue: [defaultGreen[0], '#a4c8ff', '#388bfd', '#0366d6', '#00499e'],
-        purple: [defaultGreen[0], '#d2b4ff', '#a371f7', '#7431d8', '#5b349d'],
-        orange: [defaultGreen[0], '#ffab70', '#f66a0e', '#c84600', '#b04800'],
-        red: [defaultGreen[0], '#ff7b72', '#f85149', '#c93c37', '#9c1e1e'],
-      }
-    : {
-        green: defaultGreen,
-        blue: [defaultGreen[0], '#1c3251', '#2d5999', '#4993ff', '#8bb8ff'],
-        purple: [defaultGreen[0], '#33274d', '#5b3b82', '#8957e5', '#b989ff'],
-        orange: [defaultGreen[0], '#3d2013', '#7d3a11', '#c45e1c', '#f6854d'],
-        red: [defaultGreen[0], '#37181a', '#6e2226', '#ae3636', '#f35d5d'],
-      }
-}
+  if (colorMode === 'dark') {
+    isDarkMode = true
+    return darkTheme === 'dark_dimmed'
+      ? darkDimmedProfile(defaultGreen)
+      : darkProfile(defaultGreen)
+  }
 
-var defaultFills = initDefaultFills(colorMode, darkTheme)
+  isDarkMode = false
+  return lightProfile(defaultGreen)
+}
 
 var maxTries = 5
 var tries = 0
@@ -61,6 +90,8 @@ function main() {
       intervalId = null
     }
 
+    var defaultFills = initDefaultFills(colorMode, darkTheme)
+
     chrome.storage.sync.get(
       { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
       function (result) {
@@ -77,38 +108,38 @@ function main() {
       },
     )
 
-    initThemeObserver()
+    initMediaListener()
   }
 }
 
-function initThemeObserver() {
-  if (typeof themeObserved !== 'undefined') {
+function initMediaListener() {
+  if (typeof mediaListenerAdded !== 'undefined') {
     return
   } else {
-    chrome.storage.sync.set({ theme: colorMode }) // Set the theme in advance for use by popup
+    chrome.storage.sync.set({ theme: isDarkMode ? 'dark' : 'light' }) // Set the theme in advance for use by popup
 
-    const observer = new MutationObserver(function (mutationsList) {
-      for (const mutation of mutationsList) {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'data-color-mode') {
-          var theme = mutation.target.getAttribute(mutation.attributeName)
+    window
+      .matchMedia('(prefers-color-scheme: dark)')
+      .addEventListener('change', (e) => {
+        var mode = e.matches ? 'dark' : 'light'
+        var defaultFills = initDefaultFills(mode, darkTheme)
 
-          defaultFills = initDefaultFills(theme, darkTheme)
-          chrome.storage.sync.get(
-            {
-              gccPreDefinedFills: defaultFills.green,
-              gccUserSelectedFills: 'green',
-            },
-            function (result) {
-              run(result.gccPreDefinedFills, defaultFills[result.gccUserSelectedFills])
-            },
-          )
-          chrome.storage.sync.set({ theme })
-        }
-      }
-    })
+        chrome.storage.sync.get(
+          {
+            gccPreDefinedFills: defaultFills.green,
+            gccUserSelectedFills: 'green',
+          },
+          function (result) {
+            run(
+              result.gccPreDefinedFills,
+              defaultFills[result.gccUserSelectedFills],
+            )
+          },
+        )
+        chrome.storage.sync.set({ theme: mode })
+      })
 
-    observer.observe(document.documentElement, { attributes: true })
-    themeObserved = true
+    mediaListenerAdded = true
   }
 }
 
@@ -117,7 +148,11 @@ function run(originFills, definedFills) {
   const weeks = Array(53)
     .fill()
     .map((_, i) => i)
-    .map((i) => document.querySelectorAll(`.js-calendar-graph-table tbody td.ContributionCalendar-day[data-ix="${i}"]`))
+    .map((i) =>
+      document.querySelectorAll(
+        `.js-calendar-graph-table tbody td.ContributionCalendar-day[data-ix="${i}"]`,
+      ),
+    )
   if (weeks.length === 0) {
     return
   }
@@ -138,18 +173,25 @@ function run(originFills, definedFills) {
   })
 
   // progress
-  var progressSpans = document.querySelectorAll('.Progress > span.Progress-item:not(.progress-pjax-loader-bar)')
+  var progressSpans = document.querySelectorAll(
+    '.Progress > span.Progress-item:not(.progress-pjax-loader-bar)',
+  )
   if (progressSpans.length) {
     Array.prototype.slice.call(progressSpans).map((span) => {
-      const currentColor = span.getAttribute('data-bg-color') || span.getAttribute('style').split(' ')[2]
+      const currentColor =
+        span.getAttribute('data-bg-color') ||
+        span.getAttribute('style').split(' ')[2]
 
-      span.style.backgroundColor = definedFills[progressGreen.indexOf(currentColor)]
+      span.style.backgroundColor =
+        definedFills[progressGreen.indexOf(currentColor)]
       span.setAttribute('data-bg-color', currentColor)
     })
   }
 
   // Activity overview
-  var activityOverviewGraph = document.querySelector('.js-activity-overview-graph-container > svg > g')
+  var activityOverviewGraph = document.querySelector(
+    '.js-activity-overview-graph-container > svg > g',
+  )
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
@@ -168,7 +210,9 @@ function run(originFills, definedFills) {
   // Isometric Contributions
   let count = 0
   const icStatsId = setInterval(() => {
-    var icStatsSpans = document.querySelectorAll('.ic-contributions-wrapper .color-fg-success')
+    var icStatsSpans = document.querySelectorAll(
+      '.ic-contributions-wrapper .color-fg-success',
+    )
 
     if (icStatsSpans.length > 0) {
       Array.prototype.slice.call(icStatsSpans).map((span) => {
@@ -202,8 +246,12 @@ function changeIsoColors(originFills, definedFills) {
   function helper(val) {
     return val
       .map((d) => {
-        var color = new obelisk.CubeColor().getByHorizontalColor(parseInt('0x' + d.replace('#', ''))) // border, borderHighlight, left, right, horizontal
-        var colorVals = Object.values(color).map((d) => Number(d).toString(16).slice(2))
+        var color = new obelisk.CubeColor().getByHorizontalColor(
+          parseInt('0x' + d.replace('#', '')),
+        ) // border, borderHighlight, left, right, horizontal
+        var colorVals = Object.values(color).map((d) =>
+          Number(d).toString(16).slice(2),
+        )
 
         return colorVals
       })
@@ -229,7 +277,9 @@ function changeIsoColors(originFills, definedFills) {
       var hit = originFillsObelisk.indexOf(originalRgb)
 
       if (hit > 0) {
-        var rgb = definedFillsObelisk[hit].split(',').map((d) => parseInt(d, 10))
+        var rgb = definedFillsObelisk[hit]
+          .split(',')
+          .map((d) => parseInt(d, 10))
 
         data[i] = rgb[0]
         data[i + 1] = rgb[1]
