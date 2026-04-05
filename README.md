@@ -10,6 +10,8 @@ GitHub Colorful Contributions can change the color of GitHub profile contributio
 >
 > isometric-contributions may redraw the graph when the profile page loses focus, which overwrites the color from GitHub Colorful Contributions.
 > I don't have time to address this issue at the moment.
+>
+> Therefore, the current display is: the color of isometric-contributions can only be overridden during the initial page load.
 
 ## Installation
 
