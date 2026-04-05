@@ -13,9 +13,7 @@ GitHub Colorful Contributions can change the color of GitHub profile contributio
 
 ## Installation
 
-- [Chrome Web Store](https://chrome.google.com/webstore/detail/github-colorful-contribut/nmlemiahmhcclpifhmpbjbikdgbndief)
-- [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/github-colorful-contributions/)
-- [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/ajfnndhaojedppnajhhdakkechomfafp)
+Go to <https://products.g1en.site/github-colorful-contributions> to install GitHub Colorful Contributions for different browsers.
 
 ## License
 
