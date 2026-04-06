@@ -15,7 +15,11 @@ export const manifest: UserManifest = {
   content_scripts: [
     {
       matches: ['https://github.com/*'],
-      js: ['/js/obelisk.min.js', '/js/content_script.js'],
+      js: [
+        '/js/obelisk.min.js',
+        '/js/browser-polyfill.min.js',
+        '/js/content_script.js',
+      ],
     },
   ],
 }

@@ -3,28 +3,41 @@ var progressGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 function lightProfile(defaultGreen) {
   return {
     green: defaultGreen,
-    blue: [defaultGreen[0], '#a4c8ff', '#388bfd', '#0366d6', '#00499e'],
-    purple: [defaultGreen[0], '#d2b4ff', '#a371f7', '#7431d8', '#5b349d'],
-    orange: [defaultGreen[0], '#ffab70', '#f66a0e', '#c84600', '#b04800'],
-    red: [defaultGreen[0], '#ff7b72', '#f85149', '#c93c37', '#9c1e1e'],
+    blue: [defaultGreen[0], '#caddf9', '#79b8ff', '#2188ff', '#005cc5'],
+    purple: [defaultGreen[0], '#e1d4fa', '#b392f0', '#8a63d2', '#5a32a3'],
+    orange: [defaultGreen[0], '#ffdfb6', '#ffb757', '#f68212', '#c24e00'],
+    red: [defaultGreen[0], '#ffc1c0', '#f97a82', '#d73a49', '#86181d'],
+    cyan: [defaultGreen[0], '#d2f4f4', '#7eddd3', '#12b5b0', '#08706d'],
+    pink: [defaultGreen[0], '#ffdae5', '#ff99b8', '#f45287', '#bf125d'],
+    lime: [defaultGreen[0], '#d9f99d', '#bef264', '#65a30d', '#365314'],
+    halloween: [defaultGreen[0], '#ffee4a', '#ffc501', '#fe9600', '#333'],
   }
 }
 function darkProfile(defaultGreen) {
   return {
     green: defaultGreen,
-    blue: [defaultGreen[0], '#1c3251', '#2d5999', '#4993ff', '#8bb8ff'],
-    purple: [defaultGreen[0], '#33274d', '#5b3b82', '#8957e5', '#b989ff'],
-    orange: [defaultGreen[0], '#3d2013', '#7d3a11', '#c45e1c', '#f6854d'],
-    red: [defaultGreen[0], '#37181a', '#6e2226', '#ae3636', '#f35d5d'],
+    blue: [defaultGreen[0], '#0a3069', '#0969da', '#388bfd', '#79c0ff'],
+    purple: [defaultGreen[0], '#3c1e70', '#6e40c9', '#8957e5', '#d2a8ff'],
+    orange: [defaultGreen[0], '#4d1e00', '#9e3605', '#e36209', '#ffa657'],
+    red: [defaultGreen[0], '#490202', '#8e1519', '#da3633', '#ff7b72'],
+    cyan: [defaultGreen[0], '#00373d', '#008291', '#00bcd4', '#b2ebf2'],
+    pink: [defaultGreen[0], '#490628', '#b1105d', '#db61a2', '#f692ce'],
+    lime: [defaultGreen[0], '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
+    halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
   }
 }
 function darkDimmedProfile(defaultGreen) {
   return {
     green: defaultGreen,
-    blue: [defaultGreen[0], '#1d5494', '#1b6ac8', '#3d8af5', '#76b1ff'],
-    purple: [defaultGreen[0], '#382276', '#4a2b9b', '#742de1', '#a371f7'],
-    orange: [defaultGreen[0], '#533018', '#723511', '#ae5622', '#e87c39'],
-    red: [defaultGreen[0], '#522020', '#6b2020', '#9e2f2f', '#e25a5a'],
+    blue: [defaultGreen[0], '#1a3a5a', '#285d95', '#4182c4', '#6db1f5'],
+    purple: [defaultGreen[0], '#342a5c', '#524291', '#7562bc', '#a392e8'],
+    orange: [defaultGreen[0], '#4d2d12', '#824d1a', '#c27021', '#f0a05a'],
+    red: [defaultGreen[0], '#4d2323', '#7a3535', '#ad4f4f', '#e07b7b'],
+    cyan: [defaultGreen[0], '#1e4042', '#327178', '#519fa6', '#89d1d9'],
+    pink: [defaultGreen[0], '#4d2d3e', '#8a4267', '#bf6b93', '#e899c0'],
+    lime: [defaultGreen[0], '#323d1c', '#54662d', '#89a84a', '#bef264'],
+    // Halloween is the same as dark profile.
+    halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
   }
 }
 
@@ -92,10 +105,13 @@ function main() {
 
     var defaultFills = initDefaultFills(colorMode, darkTheme)
 
-    chrome.storage.sync.get(
-      { gccPreDefinedFills: defaultFills.green, gccUserSelectedFills: 'green' },
-      function (result) {
-        chrome.storage.local.get(['isInject'], function (localResult) {
+    browser.storage.sync
+      .get({
+        gccPreDefinedFills: defaultFills.green,
+        gccUserSelectedFills: 'green',
+      })
+      .then(function (result) {
+        browser.storage.local.get(['isInject']).then(function (localResult) {
           var originFills
           if (localResult.isInject) {
             originFills = result.gccPreDefinedFills
@@ -105,8 +121,7 @@ function main() {
 
           run(originFills, defaultFills[result.gccUserSelectedFills])
         })
-      },
-    )
+      })
 
     initMediaListener()
   }
@@ -116,7 +131,7 @@ function initMediaListener() {
   if (typeof mediaListenerAdded !== 'undefined') {
     return
   } else {
-    chrome.storage.sync.set({ theme: isDarkMode ? 'dark' : 'light' }) // Set the theme in advance for use by popup
+    browser.storage.sync.set({ theme: isDarkMode ? 'dark' : 'light' }) // Set the theme in advance for use by popup
 
     window
       .matchMedia('(prefers-color-scheme: dark)')
@@ -124,19 +139,18 @@ function initMediaListener() {
         var mode = e.matches ? 'dark' : 'light'
         var defaultFills = initDefaultFills(mode, darkTheme)
 
-        chrome.storage.sync.get(
-          {
+        browser.storage.sync
+          .get({
             gccPreDefinedFills: defaultFills.green,
             gccUserSelectedFills: 'green',
-          },
-          function (result) {
+          })
+          .then(function (result) {
             run(
               result.gccPreDefinedFills,
               defaultFills[result.gccUserSelectedFills],
             )
-          },
-        )
-        chrome.storage.sync.set({ theme: mode })
+            browser.storage.sync.set({ theme: mode })
+          })
       })
 
     mediaListenerAdded = true
@@ -178,6 +192,7 @@ function run(originFills, definedFills) {
   )
   if (progressSpans.length) {
     Array.prototype.slice.call(progressSpans).map((span) => {
+      // The data-bg-color is used to store the defined color.
       const currentColor =
         span.getAttribute('data-bg-color') ||
         span.getAttribute('style').split(' ')[2]
@@ -229,10 +244,10 @@ function run(originFills, definedFills) {
     }
   }, 500)
 
-  chrome.storage.sync.set({
+  browser.storage.sync.set({
     gccPreDefinedFills: definedFills,
   })
-  chrome.storage.local.set({
+  browser.storage.local.set({
     isInject: false,
   })
 }

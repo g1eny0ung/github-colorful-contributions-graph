@@ -27,7 +27,7 @@
 
 <main class="w-[500px] p-8 space-y-4">
   <Header />
-  <section>
+  <section class="grid grid-cols-3">
     {#each fills as fill (fill[0])}
       <ColorRadio
         id={fill[0]}

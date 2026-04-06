@@ -22,9 +22,17 @@
 </script>
 
 <label
-  class="flex items-center gap-3 p-3 rounded-lg hover:bg-base-200 cursor-pointer transition-colors"
+  class="flex flex-col items-center gap-2 p-2 rounded-lg cursor-pointer transition-colors hover:bg-base-200"
   for={id}
 >
+  <span class="inline-flex gap-1">
+    {#each colors as color}
+      <span class="w-4 h-4 rounded" style="background-color: {color}"></span>
+    {/each}
+  </span>
+  <span class="text-sm font-medium capitalize">
+    {id}
+  </span>
   <input
     type="radio"
     {id}
@@ -34,9 +42,4 @@
     checked={value === checkedValue}
     onchange={handleOnChange}
   />
-  <div class="inline-flex items-center gap-2">
-    {#each colors as color}
-      <span class="w-4 h-4 rounded" style="background-color: {color}"></span>
-    {/each}
-  </div>
 </label>
