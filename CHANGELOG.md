@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.2.0] - 2026-07-14
+
 ### Added
 
 - Support more languages: es, fr, ja, ko, pt_BR, ru (Translated by GPT 5.6-Terra).
