@@ -1,0 +1,11 @@
+{
+  "extName": {
+    "message": "GitHub 컬러 기여 그래프"
+  },
+  "extDescription": {
+    "message": "💚💙💜💛❤️ GitHub 기여 그래프의 색상을 사용자 지정하세요."
+  },
+  "extDescriptionEdge": {
+    "message": "GitHub 기여 그래프의 색상을 사용자 지정하세요."
+  }
+}
