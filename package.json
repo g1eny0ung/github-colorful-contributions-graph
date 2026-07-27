@@ -25,13 +25,14 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.0.8",
     "prettier": "^3.9.5",
-    "prettier-plugin-svelte": "^3.5.2",
+    "prettier-plugin-svelte": "^4.1.1",
     "svelte": "^5.56.5",
     "svelte-check": "^4.7.2",
     "tailwindcss": "^4.3.2",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3",
-    "wxt": "^0.20.27"
+    "web-ext": "^10.5.0",
+    "wxt": "^0.21.1"
   },
   "lint-staged": {
     "*.{ts,svelte,html,css}": [
