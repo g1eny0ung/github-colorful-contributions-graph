@@ -13,13 +13,13 @@ function lightProfile(defaultGreen) {
     halloween: [defaultGreen[0], '#ffee4a', '#ffc501', '#fe9600', '#333'],
     monochromatic: [defaultGreen[0], '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
     'pastel-meadow': [defaultGreen[0], '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
-    'crimson-noir': [defaultGreen[0], '#F2A6B8', '#FF0B55', '#aa0c39', '#3A1020'],
+    'crimson-noir': [defaultGreen[0], '#f4829c', '#ff2768', '#9a0a32', '#3A1020'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
-    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
-    'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
   }
 }
 function darkProfile(defaultGreen) {
@@ -35,13 +35,13 @@ function darkProfile(defaultGreen) {
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
     monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
     'pastel-meadow': [defaultGreen[0], '#27463E', '#355447', '#56806C', '#A5D8B4'],
-    'crimson-noir': [defaultGreen[0], '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
-    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
-    'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
   }
 }
 function darkDimmedProfile(defaultGreen) {
@@ -58,13 +58,13 @@ function darkDimmedProfile(defaultGreen) {
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
     monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
     'pastel-meadow': [defaultGreen[0], '#27463E', '#355447', '#56806C', '#A5D8B4'],
-    'crimson-noir': [defaultGreen[0], '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
-    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
-    'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
   }
 }
 
