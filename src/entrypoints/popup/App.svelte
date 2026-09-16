@@ -21,6 +21,7 @@
       { theme: 'light', gccUserSelectedFills: 'none' },
       (result: { theme: 'light' | 'dark'; gccUserSelectedFills: string }) => {
         userSelectedFill = result.gccUserSelectedFills
+        activeSection = result.gccUserSelectedFills in themeFills ? 'themes' : 'colors'
         pageTheme = result.theme
         document.documentElement.setAttribute(
           'data-theme',
@@ -33,17 +34,17 @@
 
 <main class="w-[500px] p-8 space-y-4">
   <Header />
-  <div role="tablist" class="tabs tabs-boxed">
+  <div role="tablist" class="tabs tabs-boxed border-b border-gray-300">
     <button
       role="tab"
       class:tab-active={activeSection === 'colors'}
-      class="tab"
+      class="tab font-bold"
       onclick={() => (activeSection = 'colors')}>Single Colors</button
     >
     <button
       role="tab"
       class:tab-active={activeSection === 'themes'}
-      class="tab"
+      class="tab font-bold"
       onclick={() => (activeSection = 'themes')}>Color Themes</button
     >
   </div>

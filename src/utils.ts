@@ -10,7 +10,7 @@ export const defaultFills = {
   halloween: ['#eff2f5', '#ffee4a', '#ffc501', '#fe9600', '#333'],
   monochromatic: ['#eff2f5', '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
   'pastel-meadow': ['#eff2f5', '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
-  'crimson-noir': ['#eff2f5', '#F2A6B8', '#FF0B55', '#CF0F47', '#3A1020'],
+  'crimson-noir': ['#eff2f5', '#F2A6B8', '#FF0B55', '#aa0c39', '#3A1020'],
 }
 
 export const darkFills = {
@@ -24,15 +24,17 @@ export const darkFills = {
   lime: ['#151b23', '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
   halloween: ['#151b23', '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
   monochromatic: ['#151b23', '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-  'pastel-meadow': ['#151b23', '#27463E', '#4F756A', '#62977F', '#82B895'],
-  'crimson-noir': ['#151b23', '#3A1020', '#CF0F47', '#FF0B55', '#F2A6B8'],
+  'pastel-meadow': ['#151b23', '#27463E', '#355447', '#56806C', '#A5D8B4'],
+  'crimson-noir': ['#151b23', '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
 }
 
+// Multi-color themes shown in the Color Themes tab.
 export const themeFills = {
   'solarized-dark': ['#151b23', '#064573', '#2AA198', '#B58900', '#D33682'],
   'wild-horizon': ['#151b23', '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
-  'pastel-mist-nebula': ['#151b23', '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+  'pastel-nebula': ['#151b23', '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
   'avengers-initiative': ['#151b23', '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+  'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
 }
 
 export type FillKey = keyof typeof defaultFills | keyof typeof themeFills
