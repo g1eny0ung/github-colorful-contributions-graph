@@ -11,6 +11,7 @@ export const defaultFills = {
   monochromatic: ['#eff2f5', '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
   'pastel-meadow': ['#eff2f5', '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
   'crimson-noir': ['#eff2f5', '#F2A6B8', '#FF0B55', '#aa0c39', '#3A1020'],
+  'the-great-wave': ['#eff2f5', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
 }
 
 export const darkFills = {
@@ -24,17 +25,23 @@ export const darkFills = {
   lime: ['#151b23', '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
   halloween: ['#151b23', '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
   monochromatic: ['#151b23', '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-  'pastel-meadow': ['#151b23', '#27463E', '#355447', '#56806C', '#A5D8B4'],
+  'pastel-meadow': ['#151b23', '#27463E', '#356350', '#56806C', '#A5D8B4'],
   'crimson-noir': ['#151b23', '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
+  'the-great-wave': ['#151b23', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
 }
 
 // Multi-color themes shown in the Color Themes tab.
 export const themeFills = {
   'solarized-dark': ['#151b23', '#064573', '#2AA198', '#B58900', '#D33682'],
+  megatron: ['#2B2D31', '#58616B', '#A8A9AD', '#781518', '#781518'],
   'wild-horizon': ['#151b23', '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+  'harry-potter': ['#1C1B26', '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
   'pastel-nebula': ['#151b23', '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
   'avengers-initiative': ['#151b23', '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
   'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
+  'starry-night': ['#151b23', '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+  'mona-lisa': ['#151b23', '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+  'lord-of-the-rings': ['#151b23', '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
 }
 
 export type FillKey = keyof typeof defaultFills | keyof typeof themeFills

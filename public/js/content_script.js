@@ -14,12 +14,18 @@ function lightProfile(defaultGreen) {
     monochromatic: [defaultGreen[0], '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
     'pastel-meadow': [defaultGreen[0], '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
     'crimson-noir': [defaultGreen[0], '#f4829c', '#ff2768', '#9a0a32', '#3A1020'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#781518', '#781518'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
     'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
     'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
   }
 }
 function darkProfile(defaultGreen) {
@@ -34,14 +40,20 @@ function darkProfile(defaultGreen) {
     lime: [defaultGreen[0], '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
     monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-    'pastel-meadow': [defaultGreen[0], '#27463E', '#355447', '#56806C', '#A5D8B4'],
+    'pastel-meadow': [defaultGreen[0], '#27463E', '#356350', '#56806C', '#A5D8B4'],
     'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#9f3034', '#781518'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
     'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
     'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
   }
 }
 function darkDimmedProfile(defaultGreen) {
@@ -57,14 +69,20 @@ function darkDimmedProfile(defaultGreen) {
     // Halloween is the same as dark profile.
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
     monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-    'pastel-meadow': [defaultGreen[0], '#27463E', '#355447', '#56806C', '#A5D8B4'],
+    'pastel-meadow': [defaultGreen[0], '#27463E', '#356350', '#56806C', '#A5D8B4'],
     'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
     // Multi-color themes.
     'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#781518', '#781518'],
     'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
     'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
     'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
     'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
   }
 }
 

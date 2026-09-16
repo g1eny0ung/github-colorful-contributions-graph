@@ -32,7 +32,7 @@
   })
 </script>
 
-<main class="w-[500px] p-8 space-y-4">
+<main class="w-[500px] max-h-[570px] overflow-y-auto p-8 space-y-4">
   <Header />
   <div role="tablist" class="tabs tabs-boxed border-b border-gray-300">
     <button
