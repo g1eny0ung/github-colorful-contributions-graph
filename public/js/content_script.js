@@ -11,6 +11,13 @@ function lightProfile(defaultGreen) {
     pink: [defaultGreen[0], '#ffdae5', '#ff99b8', '#f45287', '#bf125d'],
     lime: [defaultGreen[0], '#d9f99d', '#bef264', '#65a30d', '#365314'],
     halloween: [defaultGreen[0], '#ffee4a', '#ffc501', '#fe9600', '#333'],
+    monochromatic: [defaultGreen[0], '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
+    'pastel-meadow': [defaultGreen[0], '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'crimson-noir': [defaultGreen[0], '#F2A6B8', '#FF0B55', '#CF0F47', '#3A1020'],
   }
 }
 function darkProfile(defaultGreen) {
@@ -24,6 +31,13 @@ function darkProfile(defaultGreen) {
     pink: [defaultGreen[0], '#490628', '#b1105d', '#db61a2', '#f692ce'],
     lime: [defaultGreen[0], '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
+    'pastel-meadow': [defaultGreen[0], '#27463E', '#4F756A', '#62977F', '#82B895'],
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#CF0F47', '#FF0B55', '#F2A6B8'],
   }
 }
 function darkDimmedProfile(defaultGreen) {
@@ -38,6 +52,13 @@ function darkDimmedProfile(defaultGreen) {
     lime: [defaultGreen[0], '#323d1c', '#54662d', '#89a84a', '#bef264'],
     // Halloween is the same as dark profile.
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
+    'pastel-meadow': [defaultGreen[0], '#27463E', '#4F756A', '#62977F', '#82B895'],
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'pastel-mist-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#CF0F47', '#FF0B55', '#F2A6B8'],
   }
 }
 
@@ -81,6 +102,9 @@ function initDefaultFills(colorMode, darkTheme) {
 var maxTries = 5
 var tries = 0
 var intervalId
+var repositoryColorObserver
+var repositoryColorFills
+var pageUpdateQueued = false
 
 // If intervalId is null, it means the page has already loaded.
 if (intervalId === null) {
@@ -186,6 +210,13 @@ function run(originFills, definedFills) {
     t.style.backgroundColor = definedFills[i]
   })
 
+  // year filters
+  var yearLinks = document.querySelectorAll('.js-year-link')
+  Array.prototype.slice.call(yearLinks).map(function (link) {
+    link.style.backgroundColor = definedFills[1]
+    link.style.borderColor = definedFills[3]
+  })
+
   // progress
   var progressSpans = document.querySelectorAll(
     '.Progress > span.Progress-item:not(.progress-pjax-loader-bar)',
@@ -210,15 +241,46 @@ function run(originFills, definedFills) {
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
-        child.attributes.fill.value = definedFills[3]
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('fill', definedFills[3], 'important')
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
       if (child.nodeName === 'line') {
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
       if (child.nodeName === 'ellipse') {
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
+    })
+  }
+
+  // Contribution activity bars and repository titles
+  var activityBars = document.querySelectorAll(
+    '.js-activity-overview-graph-container svg rect, .ContributionItem .Progress-item',
+  )
+  Array.prototype.slice.call(activityBars).map(function (bar) {
+    bar.style.setProperty('fill', definedFills[3], 'important')
+    bar.style.setProperty('background-color', definedFills[3], 'important')
+    bar.style.setProperty('stroke', definedFills[3], 'important')
+  })
+
+  colorRepositoryLinks(definedFills)
+  repositoryColorFills = definedFills
+
+  if (!repositoryColorObserver) {
+    repositoryColorObserver = new MutationObserver(() => {
+      if (pageUpdateQueued) {
+        return
+      }
+
+      pageUpdateQueued = true
+      setTimeout(() => {
+        pageUpdateQueued = false
+        main()
+      }, 0)
+    })
+    repositoryColorObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
     })
   }
 
@@ -249,6 +311,19 @@ function run(originFills, definedFills) {
   })
   browser.storage.local.set({
     isInject: false,
+  })
+}
+
+function colorRepositoryLinks(definedFills) {
+  var repositoryLinks = document.querySelectorAll(
+    '.js-yearly-contributions a[href^="/"], #js-contribution-activity a[href^="/"], .activity-listing a[href^="/"]',
+  )
+  Array.prototype.slice.call(repositoryLinks).map(function (link) {
+    var pathParts = link.getAttribute('href').split('/').filter(Boolean)
+
+    if (pathParts.length === 2) {
+      link.style.setProperty('color', definedFills[4], 'important')
+    }
   })
 }
 
