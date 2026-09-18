@@ -24,8 +24,8 @@ export const darkFills = {
   pink: ['#151b23', '#490628', '#b1105d', '#db61a2', '#f692ce'],
   lime: ['#151b23', '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
   halloween: ['#151b23', '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
-  monochromatic: ['#151b23', '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-  'pastel-meadow': ['#151b23', '#27463E', '#356350', '#56806C', '#A5D8B4'],
+  monochromatic: ['#151b23', '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+  'pastel-meadow': ['#151b23', '#224039', '#356350', '#56806C', '#A5D8B4'],
   'crimson-noir': ['#151b23', '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
   'the-great-wave': ['#151b23', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
 }

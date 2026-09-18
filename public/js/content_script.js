@@ -39,8 +39,8 @@ function darkProfile(defaultGreen) {
     pink: [defaultGreen[0], '#490628', '#b1105d', '#db61a2', '#f692ce'],
     lime: [defaultGreen[0], '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
-    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-    'pastel-meadow': [defaultGreen[0], '#27463E', '#356350', '#56806C', '#A5D8B4'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+    'pastel-meadow': [defaultGreen[0], '#224039', '#356350', '#56806C', '#A5D8B4'],
     'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
     'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
     // Multi-color themes.
@@ -68,8 +68,8 @@ function darkDimmedProfile(defaultGreen) {
     lime: [defaultGreen[0], '#323d1c', '#54662d', '#89a84a', '#bef264'],
     // Halloween is the same as dark profile.
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
-    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#9A9590', '#BEBAB7'],
-    'pastel-meadow': [defaultGreen[0], '#27463E', '#356350', '#56806C', '#A5D8B4'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+    'pastel-meadow': [defaultGreen[0], '#224039', '#356350', '#56806C', '#A5D8B4'],
     'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
     'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
     // Multi-color themes.
