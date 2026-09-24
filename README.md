@@ -2,7 +2,7 @@
 
 💚💙💜💛❤️ Customize the colors of the GitHub contributions graph.
 
-GitHub Colorful Contributions can change the color of the contributions graph on your GitHub profile page. It can also be used with [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions).
+GitHub Colorful Contributions can change the colors of the contributions graph on your GitHub profile page. It can also be used with [jasonlong/isometric-contributions](https://github.com/jasonlong/isometric-contributions).
 
 Go to <https://products.g1en.site/github-colorful-contributions> to install GitHub Colorful Contributions for different browsers.
 
@@ -16,7 +16,7 @@ Go to <https://products.g1en.site/github-colorful-contributions> to install GitH
 >
 > After a recent update to isometric-contributions, using them together causes an issue:
 >
-> isometric-contributions may redraw the graph when the profile page loses focus, which overwrites the color from GitHub Colorful Contributions.
+> isometric-contributions may redraw the graph when the profile page loses focus, which overwrites colors from GitHub Colorful Contributions.
 > Since I am not the owner of isometric-contributions, it is difficult for me to keep up with any changes that might be made to it.
 >
 > Therefore, the color of isometric-contributions can only be overridden during the initial page load for now.
