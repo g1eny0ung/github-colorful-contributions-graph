@@ -19,7 +19,7 @@ Go to <https://products.g1en.site/github-colorful-contributions> to install GitH
 > isometric-contributions may redraw the graph when the profile page loses focus, which overwrites colors from GitHub Colorful Contributions.
 > Since I am not the owner of isometric-contributions, it is difficult for me to keep up with any changes that might be made to it.
 >
-> Therefore, the color of isometric-contributions can only be overridden during the initial page load for now.
+> Therefore, the colors of isometric-contributions can only be overridden during the initial page load for now.
 
 ## License
 
