@@ -39,13 +39,13 @@
       role="tab"
       class:tab-active={activeSection === 'colors'}
       class="tab font-bold"
-      onclick={() => (activeSection = 'colors')}>Single Colors</button
+      onclick={() => (activeSection = 'colors')}>Single Color Themes</button
     >
     <button
       role="tab"
       class:tab-active={activeSection === 'themes'}
       class="tab font-bold"
-      onclick={() => (activeSection = 'themes')}>Color Themes</button
+      onclick={() => (activeSection = 'themes')}>Multi-Color Themes</button
     >
   </div>
   {#if activeSection === 'colors'}

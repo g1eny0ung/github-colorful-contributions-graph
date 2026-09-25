@@ -1,5 +1,6 @@
 export const defaultFills = {
   green: ['#eff2f5', '#aceebb', '#4ac26b', '#2da44e', '#116329'],
+  'royal-gold': ['#eff2f5', '#F9E7A2', '#E7BD4A', '#B8841A', '#4F3200'],
   blue: ['#eff2f5', '#caddf9', '#79b8ff', '#2188ff', '#005cc5'],
   purple: ['#eff2f5', '#e1d4fa', '#b392f0', '#8a63d2', '#5a32a3'],
   orange: ['#eff2f5', '#ffdfb6', '#ffb757', '#f68212', '#c24e00'],
@@ -12,10 +13,12 @@ export const defaultFills = {
   'pastel-meadow': ['#eff2f5', '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
   'crimson-noir': ['#eff2f5', '#F2A6B8', '#FF0B55', '#aa0c39', '#3A1020'],
   'the-great-wave': ['#eff2f5', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+  'velvet-dusk': ['#eff2f5', '#EED8DB', '#D6A6B5', '#7F4E68', '#2B124C'],
 }
 
 export const darkFills = {
   green: ['#151b23', '#033a16', '#196c2e', '#2ea043', '#56d364'],
+  'royal-gold': ['#151b23', '#4D2E10', '#8B5E14', '#D4AF37', '#FFE7A3'],
   blue: ['#151b23', '#0a3069', '#0969da', '#388bfd', '#79c0ff'],
   purple: ['#151b23', '#3c1e70', '#6e40c9', '#8957e5', '#d2a8ff'],
   orange: ['#151b23', '#4d1e00', '#9e3605', '#e36209', '#ffa657'],
@@ -28,6 +31,7 @@ export const darkFills = {
   'pastel-meadow': ['#151b23', '#224039', '#356350', '#56806C', '#A5D8B4'],
   'crimson-noir': ['#151b23', '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
   'the-great-wave': ['#151b23', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+  'velvet-dusk': ['#151b23', '#2B124C', '#522B5B', '#854F6C', '#DFB6B2'],
 }
 
 // Multi-color themes shown in the Color Themes tab.
@@ -42,6 +46,8 @@ export const themeFills = {
   'starry-night': ['#151b23', '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
   'mona-lisa': ['#151b23', '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
   'lord-of-the-rings': ['#151b23', '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
+  'emerald-botanica': ['#151b23', '#183630', '#337418', '#5DD62C', '#E3DAC9'],
+  'project-caesar': ['#151b23', '#3B000E', '#6D001A', '#A81B34', '#FFFFFF'],
 }
 
 export type FillKey = keyof typeof defaultFills | keyof typeof themeFills
