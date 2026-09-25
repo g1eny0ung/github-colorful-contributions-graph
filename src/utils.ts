@@ -1,5 +1,6 @@
 export const defaultFills = {
   green: ['#eff2f5', '#aceebb', '#4ac26b', '#2da44e', '#116329'],
+  'royal-gold': ['#eff2f5', '#F9E7A2', '#E7BD4A', '#B8841A', '#4F3200'],
   blue: ['#eff2f5', '#caddf9', '#79b8ff', '#2188ff', '#005cc5'],
   purple: ['#eff2f5', '#e1d4fa', '#b392f0', '#8a63d2', '#5a32a3'],
   orange: ['#eff2f5', '#ffdfb6', '#ffb757', '#f68212', '#c24e00'],
@@ -8,10 +9,16 @@ export const defaultFills = {
   pink: ['#eff2f5', '#ffdae5', '#ff99b8', '#f45287', '#bf125d'],
   lime: ['#eff2f5', '#d9f99d', '#bef264', '#65a30d', '#365314'],
   halloween: ['#eff2f5', '#ffee4a', '#ffc501', '#fe9600', '#333'],
+  monochromatic: ['#eff2f5', '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
+  'pastel-meadow': ['#eff2f5', '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
+  'crimson-noir': ['#eff2f5', '#F2A6B8', '#FF0B55', '#aa0c39', '#3A1020'],
+  'the-great-wave': ['#eff2f5', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+  'velvet-dusk': ['#eff2f5', '#EED8DB', '#D6A6B5', '#7F4E68', '#2B124C'],
 }
 
 export const darkFills = {
   green: ['#151b23', '#033a16', '#196c2e', '#2ea043', '#56d364'],
+  'royal-gold': ['#151b23', '#4D2E10', '#8B5E14', '#D4AF37', '#FFE7A3'],
   blue: ['#151b23', '#0a3069', '#0969da', '#388bfd', '#79c0ff'],
   purple: ['#151b23', '#3c1e70', '#6e40c9', '#8957e5', '#d2a8ff'],
   orange: ['#151b23', '#4d1e00', '#9e3605', '#e36209', '#ffa657'],
@@ -20,13 +27,36 @@ export const darkFills = {
   pink: ['#151b23', '#490628', '#b1105d', '#db61a2', '#f692ce'],
   lime: ['#151b23', '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
   halloween: ['#151b23', '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
+  monochromatic: ['#151b23', '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+  'pastel-meadow': ['#151b23', '#224039', '#356350', '#56806C', '#A5D8B4'],
+  'crimson-noir': ['#151b23', '#3A1020', '#aa0c39', '#FF0B55', '#F2A6B8'],
+  'the-great-wave': ['#151b23', '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+  'velvet-dusk': ['#151b23', '#2B124C', '#522B5B', '#854F6C', '#DFB6B2'],
 }
+
+// Multi-color themes shown in the Color Themes tab.
+export const themeFills = {
+  'solarized-dark': ['#151b23', '#064573', '#2AA198', '#B58900', '#D33682'],
+  megatron: ['#2B2D31', '#58616B', '#A8A9AD', '#781518', '#781518'],
+  'wild-horizon': ['#151b23', '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+  'harry-potter': ['#1C1B26', '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
+  'pastel-nebula': ['#151b23', '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+  'avengers-initiative': ['#151b23', '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+  'christmas-spirit': ['#F3F4F6', '#8E0413', '#CB0B0A', '#568D66', '#004733'],
+  'starry-night': ['#151b23', '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+  'mona-lisa': ['#151b23', '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+  'lord-of-the-rings': ['#151b23', '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
+  'emerald-botanica': ['#151b23', '#183630', '#337418', '#5DD62C', '#E3DAC9'],
+  'project-caesar': ['#151b23', '#3B000E', '#6D001A', '#A81B34', '#FFFFFF'],
+}
+
+export type FillKey = keyof typeof defaultFills | keyof typeof themeFills
 
 export function reloadContentScript() {
   browser.runtime.sendMessage('runInject')
 }
 
-export function setSelectedFill(key: keyof typeof defaultFills) {
+export function setSelectedFill(key: FillKey) {
   browser.storage.sync.set({
     gccUserSelectedFills: key,
   })

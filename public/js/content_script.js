@@ -3,6 +3,7 @@ var progressGreen = ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39']
 function lightProfile(defaultGreen) {
   return {
     green: defaultGreen,
+    'royal-gold': [defaultGreen[0], '#F4E6B1', '#E3C76B', '#B9861E', '#5D3A00'],
     blue: [defaultGreen[0], '#caddf9', '#79b8ff', '#2188ff', '#005cc5'],
     purple: [defaultGreen[0], '#e1d4fa', '#b392f0', '#8a63d2', '#5a32a3'],
     orange: [defaultGreen[0], '#ffdfb6', '#ffb757', '#f68212', '#c24e00'],
@@ -11,11 +12,30 @@ function lightProfile(defaultGreen) {
     pink: [defaultGreen[0], '#ffdae5', '#ff99b8', '#f45287', '#bf125d'],
     lime: [defaultGreen[0], '#d9f99d', '#bef264', '#65a30d', '#365314'],
     halloween: [defaultGreen[0], '#ffee4a', '#ffc501', '#fe9600', '#333'],
+    monochromatic: [defaultGreen[0], '#D0CBC8', '#BEBAB7', '#9A9590', '#443C3C'],
+    'pastel-meadow': [defaultGreen[0], '#BFD9B0', '#82B895', '#62977F', '#4F756A'],
+    'crimson-noir': [defaultGreen[0], '#f4829c', '#ff2768', '#9a0a32', '#3A1020'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+    'velvet-dusk': [defaultGreen[0], '#EED8DB', '#D6A6B5', '#7F4E68', '#2B124C'],
+    // Multi-color themes.
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#781518', '#781518'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
+    'emerald-botanica': [defaultGreen[0], '#183630', '#337418', '#5DD62C', '#E3DAC9'],
+    'project-caesar': [defaultGreen[0], '#3B000E', '#6D001A', '#A81B34', '#FFFFFF'],
   }
 }
 function darkProfile(defaultGreen) {
   return {
     green: defaultGreen,
+    'royal-gold': [defaultGreen[0], '#4D2E10', '#8B5E14', '#D4AF37', '#FFE7A3'],
     blue: [defaultGreen[0], '#0a3069', '#0969da', '#388bfd', '#79c0ff'],
     purple: [defaultGreen[0], '#3c1e70', '#6e40c9', '#8957e5', '#d2a8ff'],
     orange: [defaultGreen[0], '#4d1e00', '#9e3605', '#e36209', '#ffa657'],
@@ -24,11 +44,30 @@ function darkProfile(defaultGreen) {
     pink: [defaultGreen[0], '#490628', '#b1105d', '#db61a2', '#f692ce'],
     lime: [defaultGreen[0], '#242c05', '#4d5b12', '#82991b', '#d9f99d'],
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+    'pastel-meadow': [defaultGreen[0], '#224039', '#356350', '#56806C', '#A5D8B4'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+    'velvet-dusk': [defaultGreen[0], '#2B124C', '#522B5B', '#854F6C', '#DFB6B2'],
+    // Multi-color themes.
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#9f3034', '#781518'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
+    'emerald-botanica': [defaultGreen[0], '#183630', '#337418', '#5DD62C', '#E3DAC9'],
+    'project-caesar': [defaultGreen[0], '#3B000E', '#6D001A', '#A81B34', '#FFFFFF'],
   }
 }
 function darkDimmedProfile(defaultGreen) {
   return {
     green: defaultGreen,
+    'royal-gold': [defaultGreen[0], '#4D2E10', '#8B5E14', '#D4AF37', '#FFE7A3'],
     blue: [defaultGreen[0], '#1a3a5a', '#285d95', '#4182c4', '#6db1f5'],
     purple: [defaultGreen[0], '#342a5c', '#524291', '#7562bc', '#a392e8'],
     orange: [defaultGreen[0], '#4d2d12', '#824d1a', '#c27021', '#f0a05a'],
@@ -38,6 +77,24 @@ function darkDimmedProfile(defaultGreen) {
     lime: [defaultGreen[0], '#323d1c', '#54662d', '#89a84a', '#bef264'],
     // Halloween is the same as dark profile.
     halloween: [defaultGreen[0], '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
+    monochromatic: [defaultGreen[0], '#251D1C', '#443C3C', '#898581', '#d4d0cd'],
+    'pastel-meadow': [defaultGreen[0], '#224039', '#356350', '#56806C', '#A5D8B4'],
+    'crimson-noir': [defaultGreen[0], '#3A1020', '#9a0a32', '#ff2768', '#f4829c'],
+    'the-great-wave': [defaultGreen[0], '#0B2545', '#134074', '#8DA9C4', '#EEF4F8'],
+    'velvet-dusk': [defaultGreen[0], '#2B124C', '#522B5B', '#854F6C', '#DFB6B2'],
+    // Multi-color themes.
+    'solarized-dark': [defaultGreen[0], '#064573', '#2AA198', '#B58900', '#D33682'],
+    megatron: [defaultGreen[0], '#58616B', '#A8A9AD', '#9f3034', '#781518'],
+    'wild-horizon': [defaultGreen[0], '#1B4D3E', '#0f63ab', '#E67E22', '#D9534F'],
+    'harry-potter': [defaultGreen[0], '#3C231B', '#714E33', '#DDB35D', '#7C2518'],
+    'pastel-nebula': [defaultGreen[0], '#355C7D', '#A8E6CF', '#F8B195', '#C06C84'],
+    'avengers-initiative': [defaultGreen[0], '#1b48c4', '#2D6A4F', '#9E2A2B', '#FFB703'],
+    'christmas-spirit': ['#F3F4F6', '#8E0413', '#ea3737', '#568D66', '#086a4e'],
+    'starry-night': [defaultGreen[0], '#4E74A6', '#BDBF78', '#BFA524', '#503931'],
+    'mona-lisa': [defaultGreen[0], '#522421', '#8C5A2E', '#BF8641', '#B3B372'],
+    'lord-of-the-rings': [defaultGreen[0], '#004F2D', '#8B1E0F', '#C09741', '#5C6D70'],
+    'emerald-botanica': [defaultGreen[0], '#183630', '#337418', '#5DD62C', '#E3DAC9'],
+    'project-caesar': [defaultGreen[0], '#3B000E', '#6D001A', '#A81B34', '#FFFFFF'],
   }
 }
 
@@ -81,6 +138,9 @@ function initDefaultFills(colorMode, darkTheme) {
 var maxTries = 5
 var tries = 0
 var intervalId
+var repositoryColorObserver
+var repositoryColorFills
+var pageUpdateQueued = false
 
 // If intervalId is null, it means the page has already loaded.
 if (intervalId === null) {
@@ -186,6 +246,23 @@ function run(originFills, definedFills) {
     t.style.backgroundColor = definedFills[i]
   })
 
+  // year filters
+  var yearLinks = document.querySelectorAll('.js-year-link')
+  Array.prototype.slice.call(yearLinks).map(function (link) {
+    var isActive =
+      link.classList.contains('selected') ||
+      link.getAttribute('aria-current') === 'page' ||
+      link.getAttribute('aria-selected') === 'true'
+
+    if (isActive) {
+      link.style.setProperty('background-color', definedFills[1], 'important')
+      link.style.setProperty('border-color', definedFills[3], 'important')
+    } else {
+      link.style.removeProperty('background-color')
+      link.style.removeProperty('border-color')
+    }
+  })
+
   // progress
   var progressSpans = document.querySelectorAll(
     '.Progress > span.Progress-item:not(.progress-pjax-loader-bar)',
@@ -210,15 +287,46 @@ function run(originFills, definedFills) {
   if (activityOverviewGraph) {
     Array.prototype.slice.call(activityOverviewGraph.children).map((child) => {
       if (child.nodeName === 'path') {
-        child.attributes.fill.value = definedFills[3]
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('fill', definedFills[3], 'important')
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
       if (child.nodeName === 'line') {
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
       if (child.nodeName === 'ellipse') {
-        child.style.stroke = definedFills[3]
+        child.style.setProperty('stroke', definedFills[3], 'important')
       }
+    })
+  }
+
+  // Contribution activity bars and repository titles
+  var activityBars = document.querySelectorAll(
+    '.js-activity-overview-graph-container svg rect, .ContributionItem .Progress-item',
+  )
+  Array.prototype.slice.call(activityBars).map(function (bar) {
+    bar.style.setProperty('fill', definedFills[3], 'important')
+    bar.style.setProperty('background-color', definedFills[3], 'important')
+    bar.style.setProperty('stroke', definedFills[3], 'important')
+  })
+
+  colorRepositoryLinks(definedFills)
+  repositoryColorFills = definedFills
+
+  if (!repositoryColorObserver) {
+    repositoryColorObserver = new MutationObserver(() => {
+      if (pageUpdateQueued) {
+        return
+      }
+
+      pageUpdateQueued = true
+      setTimeout(() => {
+        pageUpdateQueued = false
+        main()
+      }, 0)
+    })
+    repositoryColorObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
     })
   }
 
@@ -249,6 +357,19 @@ function run(originFills, definedFills) {
   })
   browser.storage.local.set({
     isInject: false,
+  })
+}
+
+function colorRepositoryLinks(definedFills) {
+  var repositoryLinks = document.querySelectorAll(
+    '.js-yearly-contributions a[href^="/"], #js-contribution-activity a[href^="/"], .activity-listing a[href^="/"]',
+  )
+  Array.prototype.slice.call(repositoryLinks).map(function (link) {
+    var pathParts = link.getAttribute('href').split('/').filter(Boolean)
+
+    if (pathParts.length === 2) {
+      link.style.setProperty('color', definedFills[4], 'important')
+    }
   })
 }
 
@@ -317,9 +438,9 @@ function hex2rgb(hex) {
 
   return result
     ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+    }
     : null
 }
