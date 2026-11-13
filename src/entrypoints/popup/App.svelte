@@ -37,7 +37,7 @@
         checkedValue={fill[0]}
         onChange={(value) => {
           userSelectedFill = value
-          setSelectedFill(value)
+          setSelectedFill(value).catch(console.error)
         }}
       />
     {/each}

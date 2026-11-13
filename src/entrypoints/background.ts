@@ -20,29 +20,26 @@ export default defineBackground(() => {
     })
   }
 
-  browser.storage.local.set({
-    isInject: false,
-  })
-
-  browser.runtime.onMessage.addListener(function (message) {
-    if (message === 'runInject') {
-      browser.storage.local.set(
-        {
-          isInject: true,
-        },
-        async function () {
-          const [currentTab] = await browser.tabs.query({
-            active: true,
-            currentWindow: true,
-          })
-
-          browser.scripting.executeScript({
-            target: { tabId: currentTab.id! },
-            // @ts-ignore
-            files: ['/js/content_script.js'],
-          })
-        },
-      )
+  browser.runtime.onMessage.addListener((message) => {
+    if (message !== 'runInject') {
+      return
     }
+
+    return injectIntoActiveTab()
   })
 })
+
+async function injectIntoActiveTab() {
+  const [currentTab] = await browser.tabs.query({
+    active: true,
+    currentWindow: true,
+  })
+  if (currentTab?.id === undefined) {
+    return
+  }
+
+  await browser.scripting.executeScript({
+    target: { tabId: currentTab.id },
+    files: ['/js/content_script.js'],
+  })
+}

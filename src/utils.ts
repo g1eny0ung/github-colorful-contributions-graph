@@ -22,14 +22,7 @@ export const darkFills = {
   halloween: ['#151b23', '#631c03', '#bd561d', '#fa7a18', '#fddf68'],
 }
 
-export function reloadContentScript() {
-  browser.runtime.sendMessage('runInject')
-}
-
-export function setSelectedFill(key: keyof typeof defaultFills) {
-  browser.storage.sync.set({
-    gccUserSelectedFills: key,
-  })
-
-  reloadContentScript()
+export async function setSelectedFill(key: keyof typeof defaultFills) {
+  await browser.storage.sync.set({ gccUserSelectedFills: key })
+  await browser.runtime.sendMessage('runInject')
 }

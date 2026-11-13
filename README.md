@@ -14,12 +14,7 @@ Go to <https://products.g1en.site/github-colorful-contributions> to install GitH
 
 > [!NOTE]
 >
-> After a recent update to isometric-contributions, using them together causes an issue:
->
-> isometric-contributions may redraw the graph when the profile page loses focus, which overwrites colors from GitHub Colorful Contributions.
-> Since I am not the owner of isometric-contributions, it is difficult for me to keep up with any changes that might be made to it.
->
-> Therefore, the colors of isometric-contributions can only be overridden during the initial page load for now.
+> Isometric Contributions draws its own chart. When it redraws as you return to the tab, GitHub Colorful Contributions reapplies your selected palette once.
 
 ## License
 

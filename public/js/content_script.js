@@ -41,9 +41,6 @@ function darkDimmedProfile(defaultGreen) {
   }
 }
 
-// auto, light, dark
-var colorMode = document.documentElement.getAttribute('data-color-mode')
-var darkTheme = document.documentElement.getAttribute('data-dark-theme')
 var isDarkMode
 
 function initDefaultFills(colorMode, darkTheme) {
@@ -78,14 +75,22 @@ function initDefaultFills(colorMode, darkTheme) {
   return lightProfile(defaultGreen)
 }
 
+var contributionCellSelector =
+  '.js-yearly-contributions .js-calendar-graph-table tbody td.ContributionCalendar-day[data-level]'
+var contributionCell
+var contributionObserver
+var isoIntervalId
+var isoRestoreId
+var isoFills
+var isoCanvasFills = isoCanvasFills || new WeakMap()
 var maxTries = 5
 var tries = 0
 var intervalId
 
-// If intervalId is null, it means the page has already loaded.
-if (intervalId === null) {
-  main()
-} else {
+clearInterval(intervalId)
+intervalId = null
+
+if (!main()) {
   intervalId = setInterval(() => {
     main()
 
@@ -97,34 +102,55 @@ if (intervalId === null) {
 }
 
 function main() {
-  if (document.querySelector('.js-yearly-contributions')) {
+  var cell = document.querySelector(contributionCellSelector)
+  if (cell) {
+    contributionCell = cell
     if (intervalId) {
       clearInterval(intervalId)
       intervalId = null
     }
 
-    var defaultFills = initDefaultFills(colorMode, darkTheme)
+    var defaultFills = initDefaultFills(
+      document.documentElement.getAttribute('data-color-mode'),
+      document.documentElement.getAttribute('data-dark-theme'),
+    )
 
-    browser.storage.sync
-      .get({
-        gccPreDefinedFills: defaultFills.green,
-        gccUserSelectedFills: 'green',
-      })
-      .then(function (result) {
-        browser.storage.local.get(['isInject']).then(function (localResult) {
-          var originFills
-          if (localResult.isInject) {
-            originFills = result.gccPreDefinedFills
-          } else {
-            originFills = defaultFills.green
-          }
-
-          run(originFills, defaultFills[result.gccUserSelectedFills])
-        })
-      })
+    applySelectedFills(cell, defaultFills)
 
     initMediaListener()
+    observeContributionUpdates()
+    return true
   }
+}
+
+function observeContributionUpdates() {
+  if (contributionObserver) {
+    return
+  }
+
+  contributionObserver = new MutationObserver((records) => {
+    if (contributionCell.isConnected) {
+      return
+    }
+    if (records.some((record) => record.addedNodes.length > 0)) {
+      main()
+    }
+  })
+  document.addEventListener('visibilitychange', restoreIsometricColors)
+  contributionObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  })
+}
+
+function applySelectedFills(cell, defaultFills) {
+  browser.storage.sync
+    .get({ gccUserSelectedFills: 'green' })
+    .then(function (result) {
+      if (cell?.isConnected && contributionCell === cell) {
+        run(defaultFills.green, defaultFills[result.gccUserSelectedFills])
+      }
+    })
 }
 
 function initMediaListener() {
@@ -135,22 +161,19 @@ function initMediaListener() {
 
     window
       .matchMedia('(prefers-color-scheme: dark)')
-      .addEventListener('change', (e) => {
-        var mode = e.matches ? 'dark' : 'light'
-        var defaultFills = initDefaultFills(mode, darkTheme)
+      .addEventListener('change', () => {
+        var mode = document.documentElement.getAttribute('data-color-mode')
+        if (mode !== 'auto') {
+          return
+        }
 
-        browser.storage.sync
-          .get({
-            gccPreDefinedFills: defaultFills.green,
-            gccUserSelectedFills: 'green',
-          })
-          .then(function (result) {
-            run(
-              result.gccPreDefinedFills,
-              defaultFills[result.gccUserSelectedFills],
-            )
-            browser.storage.sync.set({ theme: mode })
-          })
+        var defaultFills = initDefaultFills(
+          mode,
+          document.documentElement.getAttribute('data-dark-theme'),
+        )
+
+        applySelectedFills(contributionCell, defaultFills)
+        browser.storage.sync.set({ theme: isDarkMode ? 'dark' : 'light' })
       })
 
     mediaListenerAdded = true
@@ -222,104 +245,105 @@ function run(originFills, definedFills) {
     })
   }
 
-  // Isometric Contributions
-  let count = 0
-  const icStatsId = setInterval(() => {
-    var icStatsSpans = document.querySelectorAll(
-      '.ic-contributions-wrapper .color-fg-success',
-    )
-
-    if (icStatsSpans.length > 0) {
-      Array.prototype.slice.call(icStatsSpans).map((span) => {
-        span.style = `color: ${definedFills[4]} !important;`
-      })
-      changeIsoColors(originFills, definedFills)
-      clearInterval(icStatsId)
-    } else {
-      count++
-    }
-
-    if (count === 10) {
-      clearInterval(icStatsId)
+  clearInterval(isoIntervalId)
+  isoFills = { cell: contributionCell, originFills, definedFills }
+  let attempts = 0
+  isoIntervalId = setInterval(() => {
+    if (
+      !isoFills.cell.isConnected ||
+      paintIsometricColors() ||
+      ++attempts === 10
+    ) {
+      clearInterval(isoIntervalId)
     }
   }, 500)
-
-  browser.storage.sync.set({
-    gccPreDefinedFills: definedFills,
-  })
-  browser.storage.local.set({
-    isInject: false,
-  })
 }
 
-function changeIsoColors(originFills, definedFills) {
-  var iso = document.querySelector('canvas#isometric-contributions')
-  var ctx = iso.getContext('2d')
-  var imageData = ctx.getImageData(0, 0, iso.width, iso.height)
-  var data = imageData.data
+function restoreIsometricColors() {
+  clearTimeout(isoRestoreId)
+  if (document.visibilityState === 'visible') {
+    isoRestoreId = setTimeout(() => {
+      if (paintIsometricColors()) {
+        clearInterval(isoIntervalId)
+      }
+    }, 100)
+  }
+}
 
-  function helper(val) {
-    return val
-      .map((d) => {
-        var color = new obelisk.CubeColor().getByHorizontalColor(
-          parseInt('0x' + d.replace('#', '')),
-        ) // border, borderHighlight, left, right, horizontal
-        var colorVals = Object.values(color).map((d) =>
-          Number(d).toString(16).slice(2),
-        )
-
-        return colorVals
-      })
-      .reduce((acc, d) => acc.concat(d), [])
-      .map(hex2rgb)
-      .map((d) => `${d.r},${d.g},${d.b}`)
+function paintIsometricColors() {
+  if (!isoFills?.cell.isConnected) {
+    return false
   }
 
-  var originFillsObelisk = helper(originFills)
-  var definedFillsObelisk = helper(definedFills)
+  const canvas = document.querySelector('canvas#isometric-contributions')
+  const stats = document.querySelectorAll(
+    '.ic-contributions-wrapper .color-fg-success',
+  )
+  if (!canvas || !stats.length) {
+    return false
+  }
 
-  /**
-   * 2026-02-18 update: I optimized the code to handle unrecognized colors.
-   *
-   * 1. The code should avoid handling '0,0,0' color.
-   * 2. The code should handle the case when the original color is not in the originFillsObelisk. Use the previous color instead.
-   */
-  var prevRgb = '0,0,0'
-  for (var i = 0; i < data.length; i += 4) {
-    var originalRgb = `${data[i]},${data[i + 1]},${data[i + 2]}`
+  const { originFills, definedFills } = isoFills
+  if (!changeIsoColors(canvas, originFills, definedFills)) {
+    return false
+  }
+  stats.forEach((span) => {
+    span.style.setProperty('color', definedFills[4], 'important')
+  })
+  return true
+}
 
-    if (originalRgb !== '0,0,0') {
-      var hit = originFillsObelisk.indexOf(originalRgb)
+function changeIsoColors(canvas, originFills, definedFills) {
+  const ctx = canvas.getContext('2d')
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  const { data } = imageData
+  const replacements = new Map()
+  const cubeColors = (fill) => {
+    const hex = fill.trim().slice(1)
+    const fullHex = hex.length === 3 ? hex.replace(/./g, '$&$&') : hex
+    return Object.values(
+      new obelisk.CubeColor().getByHorizontalColor(parseInt(fullHex, 16)),
+    ).map((color) => color & 0xffffff)
+  }
 
-      if (hit > 0) {
-        var rgb = definedFillsObelisk[hit]
-          .split(',')
-          .map((d) => parseInt(d, 10))
+  const target = definedFills.map(cubeColors)
+  const previous = isoCanvasFills.get(canvas)
+  for (const fills of previous ? [previous, originFills] : [originFills]) {
+    fills.forEach((fill, level) => {
+      cubeColors(fill).forEach((color, face) => {
+        if (color !== 0 && !replacements.has(color)) {
+          replacements.set(color, target[level][face])
+        }
+      })
+    })
+  }
 
-        data[i] = rgb[0]
-        data[i + 1] = rgb[1]
-        data[i + 2] = rgb[2]
-      } else if (prevRgb !== '0,0,0') {
-        data[i] = data[i - 4]
-        data[i + 1] = data[i - 3]
-        data[i + 2] = data[i - 2]
-      }
+  let matched = false
+  let changed = false
+  for (let i = 0; i < data.length; i += 4) {
+    if (data[i + 3] === 0) {
+      continue
+    }
+    const color = (data[i] << 16) | (data[i + 1] << 8) | data[i + 2]
+    const replacement = replacements.get(color)
+    if (replacement === undefined) {
+      continue
     }
 
-    prevRgb = originalRgb
+    matched = true
+    if (replacement !== color) {
+      data[i] = replacement >> 16
+      data[i + 1] = (replacement >> 8) & 255
+      data[i + 2] = replacement & 255
+      changed = true
+    }
   }
 
-  ctx.putImageData(imageData, 0, 0)
-}
-
-function hex2rgb(hex) {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
-
-  return result
-    ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
-      }
-    : null
+  if (changed) {
+    ctx.putImageData(imageData, 0, 0)
+  }
+  if (matched) {
+    isoCanvasFills.set(canvas, definedFills)
+  }
+  return matched
 }
