@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [6.3.0] - 2026-11-14
+
+### Added
+
+- Publish Chrome, Firefox, and Edge extension ZIPs with each tagged GitHub release.
+
+### Fixed
+
+- Apply palette changes immediately and keep the selected colors when switching contribution years on GitHub profiles.
+- Restore the selected palette when Isometric Contributions redraws the graph after you return to the tab.
+- Match the popup's dark colors to GitHub's dark theme.
+
 ## [6.2.0] - 2026-07-14
 
 ### Added
