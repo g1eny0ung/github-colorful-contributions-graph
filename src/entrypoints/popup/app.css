@@ -4,3 +4,11 @@
     emerald --default,
     forest --prefersdark;
 }
+
+@plugin "daisyui/theme" {
+  name: 'forest';
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: #0d1117;
+  --color-base-200: #656c7633;
+}

@@ -5,7 +5,7 @@
   <p>
     Made with ❤️ and fun by
     <button
-      class="text-green-500 cursor-pointer"
+      class="text-green-500 cursor-pointer hover:underline"
       onclick={() =>
         browser.tabs.create({ url: 'https://github.com/g1eny0ung' })}
     >
