@@ -295,7 +295,12 @@ function paintIsometricColors() {
 
 function changeIsoColors(canvas, originFills, definedFills) {
   const ctx = canvas.getContext('2d')
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
+  const readbackCanvas = document.createElement('canvas')
+  readbackCanvas.width = canvas.width
+  readbackCanvas.height = canvas.height
+  const readbackCtx = readbackCanvas.getContext('2d', { willReadFrequently: true })
+  readbackCtx.drawImage(canvas, 0, 0)
+  const imageData = readbackCtx.getImageData(0, 0, canvas.width, canvas.height)
   const { data } = imageData
   const replacements = new Map()
   const cubeColors = (fill) => {
